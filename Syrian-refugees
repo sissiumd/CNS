@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}    
+				});
+				$(function () {
+					Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ','
+				        }
+				    });
+				    $('#container').highcharts({
+				        chart: {
+				            type: 'bar'
+				        },
+				        title: {
+				            text: "2015 saw a dramatic increase in Syrian refugees entering the United States",
+				        },
+				        subtitle: {
+            				text: "<strong>By Sissi Cao and Madeleine Deason</strong>" + "<br>CAPITAL NEWS SERVICE<br>" + "The U.S. has increased the number of Syrian refugees admitted since the crisis began, but O'Malley and others are calling for a much greater contribution. Source: Department of State, Bureau of Population, Refugees, and Migration",
+        				},
+				        xAxis: {
+				            categories: ['2015 <br> (as of July 31)', '2014', '2013', '2012', '2011', '2010', '2009']
+				        },
+				        yAxis: {
+				            min: 0,
+				            title: {
+				                text: 'Number of refugees',
+				                align: 'low'
+				            }
+				        },
+				        tooltip: {
+            				valueSuffix: ' refugees',
+            				formatter: function() {
+           						var s = '<b>'+ this.y +' refugees</b>';            
+           						return s;
+       							},
+       						shared: false
+        				},
+        				credits: {
+			        		enabled: true,
+			            	text: 'Capital News Service',
+			            	href: 'http://cnsmaryland.org/',
+			            	target: '_blank'
+			        	},
+				   
+				        plotOptions: {
+				            bar: {
+                				dataLabels: {
+                    				enabled: true,
+                    				format: '{point.name} {point.y:,.0f}'
+                				}
+            				}
+				        },
+				        series: [{
+				        	showInLegend: false,
+				            data: [ {y : 1042},
+				            		{y : 105},
+				            		{y : 36},
+				            		{y : 31},
+				            		{y : 29} ,
+				            		{y : 25} ,
+				            		{y : 25} ],
+				            color: '#FFCC70'
+				        }]
+				    });
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width: 600px; min-width: 310px; height: 550px; margin: 0 auto"></div>
+	</body>
+</html>
