@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				
+				    
+			    $(function () {
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+    $('#container').highcharts({
+          title: {
+            text: 'Affordable Care Act leads to higher health insurance coverage in Maryland, nationally',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao and Zoe Sagalow</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'Almost two years after the Maryland Health Connection exchange launched Oct. 1, 2013, 92.1 percent of people in Maryland have health insurance coverage, up by three percent from a year ago, according to data released Wednesday morning. Nationally, more people had health insurance in 2014 than before the Affordable Care Act passed in March 2010. Massachusetts, which has maintained the highest coverage rate, already had a system for near-universal health coverage before the Affordable Care Act went into effect. Texas has had the lowest coverage rate. <br> Source: U.S. Census Bureau American Community Survey',
+            x: -20
+        },
+        xAxis: {
+           tickPosition:'inside',
+            tickmarkPlacement: 'on',
+            categories: ['2009', '2010', '2011', '2012', '2013', '2014',
+                ],
+                plotLines: [{
+                color: '#8080FF',
+                width: 2,
+                value: 1,
+                dashStyle:'shortdot',
+                label: {
+                    text: 'Affordable Care Act passed',
+                    align: 'center',
+                    rotation: 0,
+                    y: 25,
+                    x: 0
+                }
+            }]
+            
+        },
+        yAxis: {
+            title: {
+                text: 'Coverage rate'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+      		labels: {
+        		formatter: function(){
+          		return this.value + '%';
+       		 }
+     	}      
+      },
+       
+        tooltip: {
+            valueSuffix: '%'
+        },
+  
+         credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+     
+        
+        series: [
+            {
+            name: 'Massachusetts (highest)',
+            data: [95.60, 94.50, 96.60, 95.90, 96.30, 96.70],
+            color: '#FFCC70',
+            marker: {
+                symbol: 'circle'
+           },
+        },
+            {
+            name: 'Maryland',
+            data: [86.10, 87.20,86.20,	87.60,	89.80,	92.10],
+            color: 'red',
+            marker: {
+                symbol: 'circle'
+           }, 
+            dataLabels: {
+                enabled: true
+            }
+        }, {
+            name: 'National',
+            data: [83.40,83.70, 84.30, 84.60, 85.50, 88.30],
+            color: '#666666',
+            marker: {
+                symbol: 'circle'
+           },      
+        }, {
+            name: 'Texas (lowest)',
+            data: [73.90, 75.40, 76.20, 75.40, 77.90, 80.90],
+            color: '#33ADAD',
+            marker: {
+                symbol: 'circle'
+           }, 
+        }]
+    });
+});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width:800px; min-width: 600px; height: 600px; margin: 0 auto"></div>
+	</body>
+</html>
