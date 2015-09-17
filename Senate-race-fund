@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+					$(function () {
+					Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+				    
+			    $('#container').highcharts({
+			        chart: {
+			            type: 'column'
+			        },
+			        title: {
+			            text: 'Edwards at "steep fundraising disadvantage" in Senate race against Van Hollen'
+			        },
+			        subtitle: {
+			            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'Rep. Donna Edwards\' has raised approximately $930,000 from PACs and individual donors in her bid for the U.S. Senate.  Of the approximately $628,000 she has raised from individuals (in amounts above $200), only 19 percent came from Maryland. Rep. Chris Van Hollen has raised $4.2 million from PACs and individual donors.  Of the approximately $2.2 million he has raised from individuals (in amounts above $200), 70 percent came from within the state. Source: Federal Election Commission reports through June 30 fundraising deadline, the most recent data available.',
+			        },
+			        xAxis: {
+			            categories: ['Donna Edwards', 'Chris Van Hollen']
+			        },
+			        yAxis: {
+			            min: 0,
+			            title: {
+			                text: 'Itemized Individual Contributions ($ million)'
+			            },
+			            stackLabels: {
+			                enabled: true,
+			                formatter: function () {
+                  				return "$" + this.total.toFixed(2) + " million";
+                			},
+			                
+			                style: {
+			                    fontWeight: 'bold',
+			                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+			                }
+			             
+			            }
+			        },
+			        legend: {
+			            align: 'center',
+			            verticalAlign: 'bottom',
+			            floating: false,
+			            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+			            shadow: false
+			        },
+			        tooltip: {
+			            headerFormat: '<b>{point.x}</b><br/>',
+			            pointFormat: 'Total itemized individual contribution: ${point.stackTotal} million<br>{series.name} share: ${point.y} million'
+			        },
+			        credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+			        plotOptions: {
+			            column: {
+			                stacking: 'normal',
+			                dataLabels: {
+			                    enabled: true,
+			                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+			                    formatter: function() {
+           						var s = this.percentage.toFixed(1) +'%';            
+           						return s;
+       							},
+			                    style: {
+			                    textShadow: false
+			               }
+			               		
+			                }
+			            }
+			        },
+			        series: [{
+			            name: 'Out-of-state',
+			            color: '#CACED2',
+			            data: [0.506, 0.661]
+			            
+			        }, {
+			            name: 'Maryland',
+			            color: '#FFCC70',
+			            data: [0.122, 1.516]
+			        }]
+			    });
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width: 600px; min-width: 310px; height: 650px; margin: 0 auto"></div>
+	</body>
+</html>
