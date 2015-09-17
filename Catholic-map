@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/maps/highmaps.js"></script>
+		<script src="http://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+		<script type="text/javascript">
+			
+			
+					$(function () {
+
+    // Prepare demo data
+    var data = [
+        {
+            "hc-key": "us-ma",
+            "value": 34
+        },
+        {
+            "hc-key": "us-wa",
+            "value": 17
+        },
+        {
+            "hc-key": "us-ca",
+            "value": 28
+        },
+        {
+            "hc-key": "us-or",
+            "value": 12
+        },
+        {
+            "hc-key": "us-wi",
+            "value": 25
+        },
+        {
+            "hc-key": "us-me",
+            "value": 21
+        },
+        {
+            "hc-key": "us-mi",
+            "value": 18
+        },
+        {
+            "hc-key": "us-nv",
+            "value": 25
+        },
+        {
+            "hc-key": "us-nm",
+            "value": 34
+        },
+        {
+            "hc-key": "us-co",
+            "value": 16
+        },
+        {
+            "hc-key": "us-wy",
+            "value": 14
+        },
+        {
+            "hc-key": "us-ks",
+            "value": 18
+        },
+        {
+            "hc-key": "us-ne",
+            "value": 23
+        },
+        {
+            "hc-key": "us-ok",
+            "value": 8
+        },
+        {
+            "hc-key": "us-mo",
+            "value": 16
+        },
+        {
+            "hc-key": "us-il",
+            "value": 28
+        },
+        {
+            "hc-key": "us-in",
+            "value": 18
+        },
+        {
+            "hc-key": "us-vt",
+            "value": 22
+        },
+        {
+            "hc-key": "us-ar",
+            "value": 8
+        },
+        {
+            "hc-key": "us-tx",
+            "value": 23
+        },
+        {
+            "hc-key": "us-ri",
+            "value": 42
+        },
+        {
+            "hc-key": "us-al",
+            "value": 7
+        },
+        {
+            "hc-key": "us-ms",
+            "value": 4
+        },
+        {
+            "hc-key": "us-nc",
+            "value": 9
+        },
+        {
+            "hc-key": "us-va",
+            "value": 12
+        },
+        {
+            "hc-key": "us-ia",
+            "value": 18
+        },
+        {
+            "hc-key": "us-md",
+            "value": 15,
+            
+        },
+        {
+            "hc-key": "us-de",
+            "value": 22
+        },
+        {
+            "hc-key": "us-pa",
+            "value": 24
+        },
+        {
+            "hc-key": "us-nj",
+            "value": 34
+        },
+        {
+            "hc-key": "us-ny",
+            "value": 31
+        },
+        {
+            "hc-key": "us-id",
+            "value": 10
+        },
+        {
+            "hc-key": "us-sd",
+            "value": 10
+        },
+        {
+            "hc-key": "us-ct",
+            "value": 33
+        },
+        {
+            "hc-key": "us-nh",
+            "value": 26
+        },
+        {
+            "hc-key": "us-ky",
+            "value": 10
+        },
+        {
+            "hc-key": "us-oh",
+            "value": 18
+        },
+        {
+            "hc-key": "us-tn",
+            "value": 6
+        },
+        {
+            "hc-key": "us-wv",
+            "value": 6
+        },
+        {
+            "hc-key": "us-dc",
+            "value": 20
+        },
+        {
+            "hc-key": "us-la",
+            "value": 26
+        },
+        {
+            "hc-key": "us-fl",
+            "value": 21
+        },
+        {
+            "hc-key": "us-ga",
+            "value": 9
+        },
+        {
+            "hc-key": "us-sc",
+            "value": 10
+        },
+        {
+            "hc-key": "us-mn",
+            "value": 21
+        },
+        {
+            "hc-key": "us-mt",
+            "value": 17
+        },
+        {
+            "hc-key": "us-nd",
+            "value": 26
+        },
+        {
+            "hc-key": "us-az",
+            "value": 21
+        },
+        {
+            "hc-key": "us-ut",
+            "value": 5
+        },
+        {
+            "hc-key": "us-hi",
+            "value": 20
+        },
+        {
+            "hc-key": "us-ak",
+            "value": 16
+        },
+        {
+            "value": 51
+        }
+    ];
+    
+
+    // Initiate the chart
+    $('#container').highcharts('Map', {
+
+        title : {
+            text : 'Once a Catholic Colony, Maryland No Longer a Catholic Stronghold'
+        },
+
+        subtitle : {
+            text : '<strong>By Sissi Cao and Zoe Sagalow</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'While Maryland was the first Catholic colony in what later became the United States, only 15 percent of the state\'s population was Catholic in 2014, ranking 34th among U.S. states. Rhode Island had the highest percentage of Catholic population. Mississippi ranked the lowest. Overall, states in the northeast and along the southwest border -- with large Hispanic populations - are more Catholic than those in the southeast, where evangelical Protestants dominate. <br>Source: Pew Research Center 2014 <a href="http://www.pewforum.org/religious-landscape-study/religious-tradition/catholic/" target="_blank" style="color: blue; text-decoration: underline"> Religious Landscape Study</a>'
+        },
+ credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+       legend: {
+                valueDecimals: 0,
+           		valueSuffix: '%',
+                title:{
+                    text: 'Percentage of adults who are Catholic'
+                }
+       },
+        
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+
+        colorAxis: {
+            min: 0,
+   
+        },
+		tooltip: {
+            valueSuffix: '%',
+           
+           
+        },
+        series : [{
+            data : data,
+            mapData: Highcharts.maps['countries/us/us-all'],
+            joinBy: 'hc-key',
+            name:'Catholics',
+            states: {
+                color: '#FFB870',
+                hover: {
+                    color: '#FFB870'
+                }
+            },
+            dataLabels: {
+                enabled: false,
+                format: '{point.name}'
+            }
+        }, {
+            name: 'Separators',
+            type: 'mapline',
+            data: Highcharts.geojson(Highcharts.maps['countries/us/us-all'], 'mapline'),
+            color: 'silver',
+            showInLegend: false,
+            enableMouseTracking: false
+        }],
+
+colors: ['rgba(64,19,117,0.05)', 'rgba(64,19,117,0.2)',
+                    'rgba(64,19,117,0.5)', 'rgba(64,19,117,0.7)', 'rgba(64,19,117,1)',],      
+                colorAxis: {
+                    dataClassColor: 'category',
+                    dataClasses: [{
+                        from: 0,
+                        to: 10
+                    }, {
+                        from: 10,
+                        to: 20
+                    }, {
+                        from: 20,
+                        to: 30
+                    }, {
+                        from: 30,
+                        to: 40
+                    }, {
+                        from: 40,
+                        to: 50
+                    }]
+                },
+
+    });
+});
+	
+					
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width: 600px; min-width: 310px; height: 650px; margin: 0 auto"></div>
+	</body>
+</html>
