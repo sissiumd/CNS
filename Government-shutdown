@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				
+	  $(function () {
+                    Highcharts.setOptions({
+                        lang: {
+                            thousandsSep: ''
+                            
+                        }
+                    })
+                    });
+ 
+    $('#container').highcharts({
+
+        chart: {
+            type: 'bubble',
+            plotBorderWidth: 1,
+            zoomType: 'xy',
+            
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        title: {
+            text: '12 Government Shutdowns in 35 Years. Is Another One Due?'
+        },
+
+        subtitle: {
+            text: '<div style="text-align:center"><b>By Joey Trull and Sissi Cao</b><br>' + 'Capital News Service<br>' + 'The federal government has temporarily shut down 12 times in the past 35 years. The government stopped work when Congress couldn\'t agree to pass spending bills. Experts expect another shutdown in October because of disagreement over the Iran nuclear deal, spending cuts and the deficiency in the Highway Trust Fund, according to the Washington Post. '+'Source: <a href="https://www.fas.org/sgp/crs/misc/RL34680.pdf" target= "_blank">Congressional Research Service</a></div>',
+            useHTML: true
+            
+                    },
+        
+credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+     
+        yAxis: {
+           
+            gridLineWidth: 0,
+            minorGridLineWidth: 0,
+            tickInterval: 1,
+            title: {
+                text: null
+            },
+            min:1980,
+            max:2016,
+            startOnTick:false,
+            endOnTick:true,
+            labels: {
+                style: {
+                        color: 'black',
+                        fontWeight: 'bold'
+                    },
+                format: '{value}',
+            formatter: function() { // only output a label on the years of interest
+                if (this.value <= 1984 && this.value>1980)
+                    return this.value;
+                else if (this.value == 1986||this.value == 1987||this.value == 1990||this.value == 1995||this.value == 2013)
+                    return this.value;
+                else
+                    return null;
+            }
+                
+            
+            },
+            
+            plotBands: [{ // mark the weekend
+                color: '#FF9999',
+                from: 1980,
+                to: 1988,
+                          label: {
+                   text: 'Ronald Reagan',
+                   align:'right',
+                   x:-10
+                }
+                
+                            
+            }, 
+                         {
+                color: '#FFB2B2',
+                from: 1988,
+                to: 1992,
+                             label: {
+                   text: 'George H.W. Bush',
+                   align:'right',
+                   x:-10
+                }
+            },
+                        
+                         {
+                color: '#99C2FF',
+                from: 1992,
+                to: 2000,
+                             label: {
+                   text: 'Bill Clinton',
+                   align:'right',
+                   x:-10
+                }
+            },
+                        {
+                            color: '#FF9999',
+                            from: 2000, 
+                            to: 2008,
+                            label: {
+                                text: 'George W. Bush',
+                                align: 'right',
+                                x: -10
+                            }
+                        },
+                           
+                        
+                        
+                        {
+                color: '#99C2FF',
+                from: 2008,
+                to: 2016,
+                label: {
+                   text: 'Barack Obama',
+                   align:'right',
+                   x:-10
+                }
+            }
+              ],
+            
+          
+         
+        },
+
+        xAxis: {
+            gridLineWidth: 0,
+            minorGridLineWidth: 0,
+            startOnTick: false,
+            endOnTick: false,
+            title:{
+                text:null
+            },
+            labels: {
+                enabled: false
+            },
+            maxPadding: 0.2,
+            
+        },
+        
+      
+
+        tooltip: {
+            useHTML: true,
+            headerFormat: '<table>',
+            pointFormat: 
+                '<tr><th>Year:</th><td>{point.y}</td></tr>' +
+                '<tr><th>Days closed:</th><td>{point.z}</td></tr>' +
+            '<tr><th>Senate:</th><td>{point.senate}</td></tr>'
+            + 
+            '<tr><th>House:</th><td>{point.house}</td></tr>'+'<tr><th>President: </th><td>{point.president}</td></tr>',
+            footerFormat: '</table>',
+            followPointer: true
+        },
+
+        plotOptions: {
+            
+            bubble:{
+                color: 'rgba(0,0,0,.5)',
+                maxSize:'25%'
+            },
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.days}'
+                }
+            }
+        },
+
+        series: [{
+            data: [
+                {x: 5, y:1981, z: 4, days: '2', president: 'Ronald Reagan', senate: 'Republican', house: 'Democrat'},
+                {x: 5, y:1982, z: 8, days: '4', president: 'Ronald Reagan', senate: 'Republican', house: 'Democrat'},
+                
+                {x: 5, y:1983, z: 6, days: '3', president: 'Ronald Reagan', senate: 'Republican', house: 'Democrat'},
+                {x: 5, y:1984, z: 6, days: '3', president: 'Ronald Reagan', senate: 'Republican', house: 'Democrat'},
+                
+                {x: 5, y:1986, z: 2, days: '1', president: 'Ronald Reagan', senate: 'Republican', house: 'Democrat'},
+                {x: 5, y:1987, z: 2, days: '1', president: 'Ronald Reagan', senate: 'Democrat', house: 'Democrat'},
+                {x: 5, y:1990, z: 10, days: '5', president: 'George H.W. Bush', senate: 'Democrat', house: 'Democrat'},
+                {x: 5, y:1995, z: 52, days: '26', president: 'Bill Clinton', senate: 'Republican', house: 'Republican'},
+                
+                {x: 5, y:2013, z: 32, days: '16', president: 'Barack Obama', senate: 'Democrat', house: 'Republican'
+               },
+                
+            ]
+        }]
+
+    });
+});
+		</script>
+		
+	</head>
+
+	<body>
+		<div id="container" style="height: 900px; min-width: 400px; max-width: 600px; margin: 0 auto"></div>
+	</body>
+</html>
