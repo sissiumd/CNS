@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+	  
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				//group xAxis plugin
+				(function(HC, HA){
+/*jshint expr:true, boss:true */
+var UNDEFINED = void 0,
+    mathRound = Math.round,
+    mathMin   = Math.min,
+    mathMax   = Math.max,
+    merge     = HC.merge,
+	pick	  = HC.pick,
+
+    // cache prototypes
+    axisProto  = HC.Axis.prototype,
+    tickProto  = HC.Tick.prototype,
+
+    // cache original methods
+    _axisInit          = axisProto.init,
+    _axisRender        = axisProto.render,
+    _axisSetCategories = axisProto.setCategories,
+    _tickGetLabelSize  = tickProto.getLabelSize,
+    _tickAddLabel      = tickProto.addLabel,
+    _tickDestroy       = tickProto.destroy,
+    _tickRender        = tickProto.render;
+
+
+function Category(obj, parent) {
+	this.userOptions = deepClone(obj);
+  this.name = obj.name || obj;
+  this.parent = parent;
+
+  return this;
+}
+
+Category.prototype.toString = function () {
+  var parts = [],
+      cat = this;
+
+  while (cat) {
+    parts.push(cat.name);
+    cat = cat.parent;
+  }
+
+  return parts.join(', ');
+};
+
+
+// Highcharts methods
+function defined(obj) {
+  return obj !== UNDEFINED && obj !== null;
+}
+
+// calls parseInt with radix = 10, adds 0.5 to avoid blur
+function pInt(n) {
+  return parseInt(n, 10) - 0.5;
+}
+
+// returns sum of an array
+function sum(arr) {
+  var l = arr.length,
+      x = 0;
+
+  while (l--)
+    x += arr[l];
+
+  return x;
+}
+
+
+// Builds reverse category tree
+function buildTree(cats, out, options, parent, depth) {
+  var len = cats.length,
+      cat;
+
+  depth || (depth = 0);
+  options.depth || (options.depth = 0);
+
+  while (len--) {
+    cat = cats[len];
+
+
+    if (parent)
+      cat.parent = parent;
+
+
+    if (cat.categories)
+      buildTree(cat.categories, out, options, cat, depth + 1);
+
+    else
+      addLeaf(out, cat, parent);
+  }
+
+  options.depth = mathMax(options.depth, depth);
+}
+
+// Adds category leaf to array
+function addLeaf(out, cat, parent) {
+  out.unshift(new Category(cat, parent));
+
+  while (parent) {
+    parent.leaves++ || (parent.leaves = 1);
+    parent = parent.parent;
+  }
+}
+
+// Pushes part of grid to path
+function addGridPart(path, d) {
+  path.push(
+    'M',
+    pInt(d[0]), pInt(d[1]),
+    'L',
+    pInt(d[2]), pInt(d[3])
+  );
+}
+
+// Destroys category groups
+function cleanCategory(category) {
+  var tmp;
+
+  while (category) {
+    tmp = category.parent;
+
+    if (category.label)
+      category.label.destroy();
+
+    delete category.parent;
+    delete category.label;
+
+    category = tmp;
+  }
+}
+
+// Returns tick position
+function tickPosition(tick, pos) {
+  return tick.getPosition(tick.axis.horiz, pos, tick.axis.tickmarkOffset);
+}
+
+function walk(arr, key, fn) {
+  var l = arr.length,
+      children;
+
+  while (l--) {
+    children = arr[l][key];
+
+    if (children)
+      walk(children, key, fn);
+
+    fn(arr[l]);
+  }
+}
+
+function deepClone(thing) {
+    return JSON.parse(JSON.stringify(thing));
+}
+
+//
+// Axis prototype
+//
+
+axisProto.init = function (chart, options) {
+  // default behaviour
+  _axisInit.call(this, chart, options);
+
+  if (typeof options === 'object' && options.categories)
+    this.setupGroups(options);
+};
+
+// setup required axis options
+axisProto.setupGroups = function (options) {
+  var categories,
+      reverseTree = [],
+      stats       = {};
+ 
+  categories = deepClone(options.categories);;
+
+  // build categories tree
+  buildTree(categories, reverseTree, stats);
+
+  // set axis properties
+  this.categoriesTree   = categories;
+  this.categories       = reverseTree;
+  this.isGrouped        = stats.depth !== 0;
+  this.labelsDepth      = stats.depth;
+  this.labelsSizes      = [];
+  this.labelsGridPath   = [];
+  this.tickLength       = options.tickLength || this.tickLength || null;
+  this.directionFactor  = [-1, 1, 1, -1][this.side];
+
+  this.options.lineWidth = options.lineWidth || 1;
+};
+
+
+axisProto.render = function () {
+  // clear grid path
+  if (this.isGrouped)
+    this.labelsGridPath = [];
+
+  // cache original tick length
+  if (this.originalTickLength === UNDEFINED)
+    this.originalTickLength = this.options.tickLength;
+
+  // use default tickLength for not-grouped axis
+  // and generate grid on grouped axes,
+  // use tiny number to force highcharts to hide tick
+  this.options.tickLength = this.isGrouped ? 0.001 : this.originalTickLength;
+
+  _axisRender.call(this);
+
+
+  if (!this.isGrouped) {
+    if (this.labelsGrid)
+      this.labelsGrid.attr({visibility: 'hidden'});
+    return;
+  }
+
+  var axis    = this,
+      options = axis.options,
+      top     = axis.top,
+      left    = axis.left,
+      right   = left + axis.width,
+      bottom  = top + axis.height,
+      visible = axis.hasVisibleSeries || axis.hasData,
+      depth   = axis.labelsDepth,
+      grid    = axis.labelsGrid,
+      horiz   = axis.horiz,
+      d       = axis.labelsGridPath,
+      i       = options.drawHorizontalBorders === false ? depth+1 : 0,
+      offset  = axis.opposite ? (horiz ? top : right) : (horiz ? bottom : left),
+      part,
+	  tickWidth;
+
+  if (axis.userTickLength)
+    depth -= 1;
+
+  // render grid path for the first time
+  if (!grid) {
+	// #66: tickWidth for x axis defaults to 1, for y to 0
+	tickWidth = pick(options.tickWidth, axis.isXAxis ? 1 : 0);
+	
+    grid = axis.labelsGrid = axis.chart.renderer.path()
+      .attr({
+      		// #58: use tickWidth/tickColor instead of lineWidth/lineColor: 
+        strokeWidth: tickWidth, // < 4.0.3
+        'stroke-width': tickWidth, // 4.0.3+ #30
+        stroke: options.tickColor
+      })
+      .add(axis.axisGroup);
+  }
+
+  // go through every level and draw horizontal grid line
+  while (i <= depth) {
+    offset += axis.groupSize(i);
+
+    part = horiz ?
+      [left, offset, right, offset] :
+      [offset, top, offset, bottom];
+
+    addGridPart(d, part);
+    i++;
+  }
+
+  // draw grid path
+  grid.attr({
+    d: d,
+    visibility: visible ? 'visible' : 'hidden'
+  });
+
+  axis.labelGroup.attr({
+    visibility: visible ? 'visible' : 'hidden'
+  });
+
+
+  walk(axis.categoriesTree, 'categories', function (group) {
+    var tick = group.tick;
+
+    if (!tick)
+      return;
+
+    if (tick.startAt + tick.leaves - 1 < axis.min || tick.startAt > axis.max) {
+      tick.label.hide();
+      tick.destroyed = 0;
+    }
+    else
+	  tick.label.attr({
+		visibility: visible ? 'visible' : 'hidden'
+	  });
+  });
+};
+
+axisProto.setCategories = function (newCategories, doRedraw) {
+  if (this.categories)
+    this.cleanGroups();
+
+  this.setupGroups({
+    categories: newCategories
+  });
+  this.categories = this.userOptions.categories = newCategories;
+  _axisSetCategories.call(this, this.categories, doRedraw);
+};
+
+// cleans old categories
+axisProto.cleanGroups = function () {
+  var ticks = this.ticks,
+      n;
+
+  for (n in ticks)
+    if (ticks[n].parent)
+      delete ticks[n].parent;
+
+  walk(this.categoriesTree, 'categories', function (group) {
+    var tick = group.tick,
+        n;
+
+    if (!tick)
+      return;
+
+    tick.label.destroy();
+
+    for (n in tick)
+      delete tick[n];
+
+    delete group.tick;
+  });
+  this.labelsGrid = null;
+};
+
+// keeps size of each categories level
+axisProto.groupSize = function (level, position) {
+  var positions = this.labelsSizes,
+      direction = this.directionFactor,
+      groupedOptions = this.options.labels.groupedOptions ? this.options.labels.groupedOptions[level-1] : false,
+      userXY = 0;
+      
+  if(groupedOptions) {
+  	if(direction == -1) {
+  		userXY = groupedOptions.x ? groupedOptions.x : 0;
+  	} else {
+  		userXY = groupedOptions.y ? groupedOptions.y : 0;
+  	}
+  }  	
+  
+  if (position !== UNDEFINED)
+    positions[level] = mathMax(positions[level] || 0, position + 10 + Math.abs(userXY)) ;
+  
+  if (level === true)
+    return sum(positions) * direction;
+
+  else if (positions[level])
+    return positions[level] * direction;
+
+  return 0;
+};
+
+
+
+//
+// Tick prototype
+//
+
+// Override methods prototypes
+tickProto.addLabel = function () {
+  var category;
+
+  _tickAddLabel.call(this);
+
+  if (!this.axis.categories ||
+      !(category = this.axis.categories[this.pos]))
+    return;
+
+  // set label text - but applied after formatter #46
+  if (category.name && this.label)
+    this.label.attr('text', this.axis.labelFormatter.call({
+			axis: this.axis,
+			chart: this.axis.chart,
+			isFirst: this.isFirst,
+			isLast: this.isLast,
+			value: category.name
+		}));
+
+  // create elements for parent categories
+  if (this.axis.isGrouped && this.axis.options.labels.enabled)
+    this.addGroupedLabels(category);
+};
+
+// render ancestor label
+tickProto.addGroupedLabels = function (category) {
+  var tick    = this,
+      axis    = this.axis,
+      chart   = axis.chart,
+      options = axis.options.labels,
+      useHTML = options.useHTML,
+      css     = options.style,
+      userAttr= options.groupedOptions,
+      attr    = { align: 'center' , rotation: options.rotation, x: 0, y: 0 },
+      size    = axis.horiz ? 'height' : 'width',
+      depth   = 0,
+      label;
+
+
+  while (tick) {
+    if (depth > 0 && !category.tick) {
+      // render label element
+      this.value = category.name;
+      var name = options.formatter ? options.formatter.call(this, category) : category.name,
+      	  hasOptions = userAttr && userAttr[depth-1],
+     	  mergedAttrs =  hasOptions ? merge(attr, userAttr[depth-1] ) : attr,
+     	  mergedCSS = hasOptions && userAttr[depth-1].style ? merge(css, userAttr[depth-1].style ) : css;
+     	  
+      label = chart.renderer.text(name, 0, 0, useHTML)
+        .attr(mergedAttrs)
+        .css(mergedCSS)
+        .add(axis.labelGroup);
+
+      // tick properties
+      tick.startAt = this.pos;
+      tick.childCount = category.categories.length;
+      tick.leaves = category.leaves;
+      tick.visible = this.childCount;
+      tick.label = label;
+      tick.labelOffsets = {
+      		x: mergedAttrs.x,
+      		y: mergedAttrs.y
+      };
+
+      // link tick with category
+      category.tick = tick;
+    }
+
+    // set level size
+    axis.groupSize(depth, tick.label.getBBox()[size]);
+
+    // go up to the parent category
+    category = category.parent;
+
+    if (category)
+      tick = tick.parent = category.tick || {};
+    else
+      tick = null;
+
+    depth++;
+  }
+};
+
+// set labels position & render categories grid
+tickProto.render = function (index, old, opacity) {
+  _tickRender.call(this, index, old, opacity);
+
+  var treeCat = this.axis.categories[this.pos];
+  
+  if (!this.axis.isGrouped || !treeCat || this.pos > this.axis.max)
+    return;
+
+  var tick    = this,
+      group   = tick,
+      axis    = tick.axis,
+      tickPos = tick.pos,
+      isFirst = tick.isFirst,
+      max     = axis.max,
+      min     = axis.min,
+      horiz   = axis.horiz,
+      cat     = axis.categories[tickPos],
+      grid    = axis.labelsGridPath,
+      size    = axis.groupSize(0),
+      tickLen = axis.tickLength || size,
+      factor  = axis.directionFactor,
+      xy      = tickPosition(tick, tickPos),
+      start   = horiz ? xy.y : xy.x,
+      baseLine= axis.chart.renderer.fontMetrics(axis.options.labels.style.fontSize).b,
+      depth   = 1,
+      gridAttrs,
+      lvlSize,
+      minPos,
+      maxPos,
+      attrs,
+      bBox;
+
+  // render grid for "normal" categories (first-level), render left grid line only for the first category
+  if (isFirst) {
+  	
+    gridAttrs = horiz ?
+      [axis.left, xy.y, axis.left, xy.y + axis.groupSize(true)] :
+      axis.isXAxis ?
+        [xy.x, axis.top, xy.x + axis.groupSize(true), axis.top] :
+        [xy.x, axis.top + axis.len, xy.x + axis.groupSize(true), axis.top + axis.len];
+
+    addGridPart(grid, gridAttrs);
+  }
+
+    
+	if(horiz && axis.left < xy.x) {
+			addGridPart(grid, [xy.x, xy.y, xy.x, xy.y + size]);
+	} else if(!horiz && axis.top < xy.y){
+			addGridPart(grid, [xy.x, xy.y, xy.x + size, xy.y]);
+	}
+
+  size = start + size;
+
+  function fixOffset(group, treeCat, tick){
+  		var ret = 0;
+			if(isFirst) {
+					ret = HA.inArray(treeCat.name, treeCat.parent.categories);
+					ret = ret < 0 ? 0 : ret;
+					return ret;
+			} 
+			return ret;
+  }
+
+
+  while (group = group.parent) {
+  	var fix = fixOffset(group, treeCat, tick),
+  			userX = group.labelOffsets.x,
+  			userY = group.labelOffsets.y;
+  	
+    minPos  = tickPosition(tick, mathMax(group.startAt - 1, min - 1));
+    maxPos  = tickPosition(tick, mathMin(group.startAt + group.leaves - 1 - fix, max));
+    bBox    = group.label.getBBox(true);
+    lvlSize = axis.groupSize(depth);
+    
+    attrs = horiz ? {
+      x: (minPos.x + maxPos.x) / 2 + userX,
+      y: size + lvlSize / 2 + baseLine - bBox.height / 2 - 4 + userY / 2
+    } : {
+			x: size + lvlSize / 2 + userX,
+			y: (minPos.y + maxPos.y - bBox.height) / 2  + baseLine + userY
+		};
+
+		if(!isNaN(attrs.x) && !isNaN(attrs.y)){ 
+			group.label.attr(attrs);
+	
+			if (grid) {
+				if(horiz && axis.left < maxPos.x) {
+						addGridPart(grid, [maxPos.x, size, maxPos.x, size + lvlSize]);
+				} else if(!horiz && axis.top < maxPos.y){
+						addGridPart(grid, [size, maxPos.y, size + lvlSize, maxPos.y]);
+				}
+			}
+    }
+
+    size += lvlSize;
+    depth++;
+  }
+};
+
+tickProto.destroy = function () {
+  var group = this;
+
+  while (group = group.parent)
+    group.destroyed++ || (group.destroyed = 1);
+
+  _tickDestroy.call(this);
+};
+
+// return size of the label (height for horizontal, width for vertical axes)
+tickProto.getLabelSize = function () {
+  if (this.axis.isGrouped === true)
+    return sum(this.axis.labelsSizes);
+  else
+    return _tickGetLabelSize.call(this);
+};
+
+}(Highcharts, HighchartsAdapter));
+				    //end of group plugin
+				    
+			    $(function () {
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+				    
+   $('#container').highcharts({
+        chart: {
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Home Prices in Maryland Growing More Slowly than National Average'
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'The House Price Index (HPI) is a measure commonly used for tracking price changes in residential housing. Following the economic downtown between 2008 and 2009, the national House Price Index plunged for nine straight quarters beginning in 2008. Maryland fared worse than the national average. While the economy continues to recover -- with national GDP growing at a stable rate -- the growth of the House Price Index in Maryland has fallen  behind the national average. <br> Source: Federal Housing Finance Agency and The U.S. Department of Commerce - Bureau of Economic Analysis'
+        },
+        xAxis: {
+            categories: [{
+            name:'2008',
+            categories:['Q2','Q3','Q4']
+            },{
+            name:'2009',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2010',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2011',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2012',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2013',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2014',
+            categories:['Q1','Q2','Q3','Q4']
+            },{
+            name:'2015',
+            categories:['Q1','Q2']
+            }],
+            crosshair: true
+        },
+        yAxis: [{ // Primary yAxis
+            labels: {
+                format: '{value}%',
+                style: {
+                    color: '#3385FF'
+                }
+            },
+            title: {
+                text: 'Change in House Price Index <br>(over previous quarter)',
+             
+                style: {
+                    color: '#3385FF',
+                }
+            },
+            opposite: false,
+            showFirstLabel:false,
+            tickInterval:1,
+        	min:-9,
+        	max:5
+            
+        },{ // secondary right yAxis
+            labels: {
+                format: '{value}%',
+                style: {
+                    color: '#B2B2B2'
+                }
+            },
+            title: {
+                text: 'GDP growth',
+                style: {
+                    color: '#B2B2B2',
+                }
+            },
+            showFirstLabel:false,
+            opposite: true,
+            tickInterval:1,
+        	min:-9,
+        	max:5
+         	
+        }
+        ],
+        
+        credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+        tooltip: {
+            shared: true
+        },
+        legend: {
+            
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        series: [{
+            name: 'GPD growth',
+            type: 'column',
+            yAxis:1,
+            
+ 
+            marker: {
+                enabled: false,
+            },
+            color:'#E6E6E6',
+            
+            data: [-1.3, -3.7, -8.9, -6.7, -0.7, 1.7, 3.8, 3.9, 3.8, 2.5, 2.3, 0.4, 1.3, 0.8, 4.6, 2.7, 1.9, 0.5, 0.1, 1.9 , 1.1, 3, 3.8, 0.9, 4.6, 4.3, 2.1, 0.6, 3.9],
+
+            tooltip: {
+                valueSuffix: '%'
+            }
+            },{
+            name: 'Change in National HPI',
+            type: 'spline',
+            lineWidth:3,
+            color:'#ADCEFF',
+             tooltip: {
+                valueSuffix: '%'
+            },
+            data: [-2.47,
+-3.11,
+-0.89,
+0.74,
+-2.65,
+-2.65,
+-0.71,
+-1.20,
+-0.88,
+0.97,
+-0.71,
+-2.76,
+-1.68,
+0.80,
+0.47,
+-1.03,
+-0.35,
+1.30,
+0.82,
+0.53,
+1.62,
+1.66,
+1.00,
+0.93,
+2.17,
+1.54,
+0.87,
+0.87,
+1.86],
+            marker: {
+                enabled: false,
+            }
+ 
+        }, {
+            name: 'Change in Maryland HPI',
+            type: 'spline',
+            color:'#FF6666',
+            lineWidth:3,
+             tooltip: {
+                valueSuffix: '%'
+            },
+            data: [-3.37,
+-4.04,
+-1.53,
+-0.92,
+-3.95,
+-2.47,
+-1.72,
+-0.81,
+-1.12,
+1.24,
+-0.94,
+-2.96,
+-1.90,
+1.50,
+0.43,
+-1.45,
+-0.91,
+1.23,
+0.38,
+0.06,
+1.01,
+0.58,
+0.25,
+0.54,
+1.84,
+0.82,
+0.68,
+0.28,
+1.05],
+            
+            marker: {
+                enabled: false,
+            }
+            
+            }
+            
+            ]
+    });
+     
+     
+     });
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="position:relative; max-width:800px; width: 100%; height: 600px; margin: 0 auto"></div>
+	
+	</body>
+</html>
