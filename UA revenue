@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				
+				    
+			    $(function () {
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+    $('#container').highcharts({
+          title: {
+            text: 'Under Armour Averages 32 Percent Annual Revenue Growth in the Past Decade',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'Since going public in 2005, Under Armour has achieved tremendous revenue growth year over year at a rate much faster than established companies like Nike and Adidas. Adidas\'s merger with Reebok in late 2005 contributed to a major revenue hike in the following year.',
+            x: -20
+        },
+        xAxis: {
+           tickPosition:'inside',
+            tickmarkPlacement: 'between',
+            categories: ['2005', '2006', '2007', '2008','2009', '2010', '2011', '2012', '2013', '2014']
+            
+            
+        },
+        yAxis: {
+            title: {
+                text: '% change in revenue'
+            },
+      	labels: {
+                format: '{value}%'
+                }
+      },
+       
+        tooltip: {
+            valueSuffix: '%'
+        },
+  
+         credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+     
+        
+        series: [
+            {
+            name: 'Under Armour',
+            dataLabels: {
+                enabled: true,
+                
+            },
+            type:'column',
+            data: [
+37,
+53,
+41,
+19,
+18,
+24,
+39,
+24,
+27,
+32],
+            color: '#FF8080',
+            marker:{
+				enabled: false            
+            },
+            lineWidth:3
+        },{
+            name: 'Nike,Inc.',
+            type:'column',
+            data: [
+12,
+9,
+9,
+14,
+3,
+-1,
+6,
+16,
+9,
+10],
+            color: '#CACED2',
+            marker: {
+                enabled:false
+           }, 
+            
+        },{
+            name: 'Adidas Group',
+            type:'column',
+            data: [
+13,
+52,
+2,
+5,
+-4,
+16,
+11,
+12,
+-3,
+0],
+            color: '#ADCEFF',
+            marker:{
+           		enabled: false 
+          }
+               
+        }]
+    });
+});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width:800px; min-width: 600px; height: 600px; margin: 0 auto"></div>
+	</body>
+</html>
