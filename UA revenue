@@ -4,6 +4,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	    <script src="http://code.highcharts.com/highcharts.js"></script>
+
 		<script type="text/javascript">
 			
 			// Plugin to add support for credits.target in Highcharts.
@@ -31,33 +32,38 @@
 				        }
 				    })
 				    });
+				    
+
+				    
     $('#container').highcharts({
           title: {
-            text: 'Under Armour Averages 32 Percent Annual Revenue Growth in the Past Decade',
+            text: 'Under Armour Growing Faster Than Contemporary Competitors',
             x: -20 //center
         },
         subtitle: {
-            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'Since going public in 2005, Under Armour has achieved tremendous revenue growth year over year at a rate much faster than established companies like Nike and Adidas. Adidas\'s merger with Reebok in late 2005 contributed to a major revenue hike in the following year.',
+            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'In its most recent quarter ending June 30, Under Armour reported revenue of $783 million, a 28-percent increase over the same period a year ago. This is the 21st consecutive quarter the company saw a 20-plus percent growth in sales. Founded in 1996 and gone public in 2005, Under Armour has achieved tremendous revenue growth year over year. In 2014, Under Armour reported total sales of $3.08 billion, up by 32 percent from the previous year. It\'s growing at a faster rate than its contemporary sportswear companies like Lululemon (founded in 1998, went public in 2007) and Skechers (founded in 1992, went public in 1999). Lululemon runs on a February-to-January fiscal calendar. Revenue data for Lululemon is one month ahead of the other two companies. Source: U.S. Securities and Exchange Commission company filings',
             x: -20
         },
         xAxis: {
            tickPosition:'inside',
-            tickmarkPlacement: 'between',
-            categories: ['2005', '2006', '2007', '2008','2009', '2010', '2011', '2012', '2013', '2014']
-            
+            tickmarkPlacement: 'on',
+            categories: ['2005', '2006', '2007', '2008','2009', '2010', '2011', '2012', '2013', '2014'],
+            crosshair:true
             
         },
         yAxis: {
             title: {
-                text: '% change in revenue'
+                text: 'Revenue (in billions)'
             },
+            min:0,
+           
       	labels: {
-                format: '{value}%'
+                format: '${value}'
                 }
       },
        
         tooltip: {
-            valueSuffix: '%'
+            valuePrefix: '$'
         },
   
          credits: {
@@ -70,73 +76,99 @@
         
         series: [
             {
-            name: 'Under Armour',
-            dataLabels: {
-                enabled: true,
-                
-            },
-            type:'column',
+            name: 'Lululemon Athletica',
+            type:'spline',
+            lineWidth:3,
             data: [
-37,
-53,
-41,
-19,
-18,
-24,
-39,
-24,
-27,
-32],
-            color: '#FF8080',
-            marker:{
-				enabled: false            
-            },
-            lineWidth:3
-        },{
-            name: 'Nike,Inc.',
-            type:'column',
-            data: [
-12,
-9,
-9,
-14,
-3,
--1,
-6,
-16,
-9,
-10],
+0.084,
+0.149,
+0.27,
+0.35,
+0.45,
+0.71,
+1,
+1.37,
+1.59,{
+y: 1.8,
+marker: {
+        symbol: 'url(http://kvcr.org/~/media/Images/SBCCD/KVCR/Initiatives/lululemon.png)',
+        height:50,
+        width:70
+         }
+   }],
             color: '#CACED2',
             marker: {
-                enabled:false
+                enabled:true
            }, 
             
         },{
-            name: 'Adidas Group',
-            type:'column',
+            name: 'Skechers USA',
+            type:'spline',
+            
             data: [
-13,
-52,
-2,
-5,
--4,
-16,
-11,
-12,
--3,
-0],
-            color: '#ADCEFF',
+1,
+1.2,
+1.39,
+1.44,
+1.43,
+2.01,
+1.61,
+1.56,
+1.85,{y: 2.38,
+marker: {
+        symbol: 'url(http://weantalya.com/wp-content/uploads/2014/06/skechers-logo.jpg)',
+        height:50,
+        width:70
+         }
+   }],
+            color: '#80CCCC',
+            lineWidth:3,
             marker:{
-           		enabled: false 
-          }
-               
-        }]
+           		enabled:true 
+          }     
+        },{//under armour
+            name: 'Under Armour',
+            dataLabels: {
+                enabled: false,
+           
+            },
+            marker:{
+				enabled:true,
+				symbol:'circle'            
+            },
+            type:'spline',
+            data: [0.281,
+0.43,
+0.60,
+0.72,
+0.86,
+1.06,
+1.47,
+1.83,
+2.33,{
+y: 3.08,
+marker: {
+        symbol: 'url(https://upload.wikimedia.org/wikipedia/commons/4/44/Under_armour_logo.svg)',
+        height:50,
+        width:50
+         }
+   }//close special marker
+],//close data
+            color: '#FF8080',
+            lineWidth:3
+        }],//close series
+        plotOptions:{
+        	series:{
+        		fillOpacity:0.1
+        	}
+        }
+        
     });
 });
 		</script>
 	</head>
 
 	<body>
-		<div id="container" style="max-width:800px; min-width: 600px; height: 600px; margin: 0 auto"></div>
+		<div id="container" style="max-width:800px; min-width: 300px; height: 600px; margin: 0 auto"></div>
 	</body>
 </html>
