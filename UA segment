@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+					$(function () {
+					Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ','
+				            
+				        }
+				    })
+				    });
+				    
+			    $('#container').highcharts({
+			        chart: {
+			            type: 'column'
+			        },
+			        title: {
+			            text: '91 Percent of Under Armour\'s Business Come From America'
+			        },
+			        subtitle: {
+			            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'Under Armour and Adidas operate on a January to December fiscal calendar, while Nike runs June to May. Source: Companies\' 2014 annual reports',
+			        },
+			        xAxis: {
+			            categories: ['Under Armour', 'Nike Inc.','Adidas Group'],
+			            
+   					minorTickLength: 0,
+   					tickLength: 0
+			        },
+			        yAxis: {
+			            min: 0,
+			            max:100,
+			            title: {
+			                text: '% of total business'
+			            },
+			            
+			            stackLabels: {
+			                enabled: true,
+			                formatter: function () {
+                  				return this + "%";
+                			},
+			                
+			                style: {
+			                    fontWeight: 'bold',
+			                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+			                }
+			             
+			            }
+			        },
+			        legend: {
+			            align: 'center',
+			            verticalAlign: 'bottom',
+			            floating: false,
+			            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+			            shadow: false
+			        },
+			        tooltip: {
+			            headerFormat: '<b>{point.x}</b><br/>',
+			            pointFormat: 'Total itemized individual contribution: ${point.stackTotal} million<br>{series.name} share: ${point.y} million'
+			        },
+			        credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+			        plotOptions: {
+			            column: {
+			                stacking: 'normal',
+			                dataLabels: {
+			                    enabled: true,
+			                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+			                    formatter: function() {
+           						var s = this.percentage.toFixed(1) +'%';            
+           						return s;
+       							},
+			                    style: {
+			                    textShadow: false
+			               }
+			               		
+			                }
+			            }
+			        },
+			        series: [{
+			            name: 'North America',
+			            color: '#FF8080',
+			            data: [91, 48,19]
+			            
+			        }, {
+			            name: 'Others',
+			            color: '#CACED2',
+			            data: [9,52,81]
+			        }]
+			    });
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="max-width: 600px; min-width: 310px; height: 600px; margin: 0 auto"></div>
+		<!--note: Under Armour has a January to December fiscal year, while Nike has a June to May fiscal year. Adidas has...-->
+	</body>
+</html>
