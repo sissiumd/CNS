@@ -32,19 +32,28 @@
 				    
 			    $('#container').highcharts({
 			        chart: {
-			            type: 'column'
+			            type: 'bar'
 			        },
 			        title: {
-			            text: '91 Percent of Under Armour\'s Business Come From America'
+			            text: 'Under Armour Still an \"American\" Company'
 			        },
 			        subtitle: {
-			            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'Under Armour and Adidas operate on a January to December fiscal calendar, while Nike runs June to May. Source: Companies\' 2014 annual reports',
+			            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'As of 2014,Under Armour has more than 90 percent of sales coming from domestic market, whereas industry giant like Nike and Adidas have more than half of business outside North America. Under Armour and Adidas operate on a January to December fiscal calendar, while Nike runs from June to May. Source: U.S. Securities and Exchange Commission company filings',
 			        },
 			        xAxis: {
-			            categories: ['Under Armour', 'Nike Inc.','Adidas Group'],
-			            
+			        categories: ['Under Armour', 'Nike Inc.','Adidas Group'],  
    					minorTickLength: 0,
-   					tickLength: 0
+   					tickLength: 0,
+   					labels: {
+                useHTML: true,
+                formatter: function () {
+                    return {
+                        'Under Armour': '<div><img style="height:50px; width:50px" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Under_armour_logo.svg"></div>',
+                        'Nike Inc.': '<div><img style="height:50px; width:65px" src="http://vector.me/files/images/1/9/1982/nike.png"></div>',
+                        'Adidas Group': '<div><img style="height:50px; width:60px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2000px-Adidas_Logo.svg.png"></div>'     
+                    }[this.value]; 
+                }
+            }
 			        },
 			        yAxis: {
 			            min: 0,
@@ -52,7 +61,7 @@
 			            title: {
 			                text: '% of total business'
 			            },
-			            
+			            tickInterval:20,
 			            stackLabels: {
 			                enabled: true,
 			                formatter: function () {
@@ -61,6 +70,7 @@
 			                
 			                style: {
 			                    fontWeight: 'bold',
+			                    fontSize:'20px',
 			                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
 			                }
 			             
@@ -84,14 +94,13 @@
 			            target: '_blank'
 			        },
 			        plotOptions: {
-			            column: {
+			            bar: {
 			                stacking: 'normal',
 			                dataLabels: {
 			                    enabled: true,
-			                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+			                    color: 'black',
 			                    formatter: function() {
-           						var s = this.percentage.toFixed(1) +'%';            
-           						return s;
+        return this.percentage.toFixed(0) +'%';
        							},
 			                    style: {
 			                    textShadow: false
