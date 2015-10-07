@@ -41,7 +41,7 @@
 		areas:{
 		"US": {
 				attrs : {
-					fill : "#99ADD6"
+					fill : "#8099CC"
 				},
 				attrsHover : {
 					fill: "#a4e100"
@@ -55,79 +55,79 @@
 		},
 		"CA": {
 				attrs : {
-					fill : "#99ADD6"
+					fill : "#8099CC"
 				},
 				value:"North America"	
 		},//close canada
 		"CN": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"IN": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"HK": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"ID": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"JP": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"MY": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"PH": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"
 		},
 		"SG": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"
 		},
 		"KR": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"TW": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"TH": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},
 		"VN": {
 				attrs : {
-					fill : "#FF9999"
+					fill : "#B2B299"
 				},
 				value:"Asia Pacific"	
 		},//Asia pacific
@@ -313,11 +313,9 @@
 		},//East Europe
 		"BR": {
 				attrs : {
-					fill : "#FFCCCC"
+					fill : "#B2C2B2"
 				},
-				attrsHover : {
-					fill: "#99E6E6"
-				},
+				
 				value:"l"
 				//text : {
 				//content : "Latin America", 
@@ -327,7 +325,7 @@
 		},
 		"CL": {
 				attrs : {
-					fill : "#FFCCCC"
+					fill : "#B2C2B2"
 				},
 				attrsHover : {
 					fill: "#99E6E6"
@@ -336,7 +334,7 @@
 		},
 		"MX": {
 				attrs : {
-					fill : "#FFCCCC"
+					fill : "#B2C2B2"
 				},
 				attrsHover : {
 					fill: "#99E6E6"
@@ -345,7 +343,7 @@
 		},
 		"AR": {
 				attrs : {
-					fill : "#FFCCCC"
+					fill : "#B2C2B2"
 				},
 				attrsHover : {
 					fill: "#FFCCCC"
@@ -354,7 +352,7 @@
 		},
 		"CO": {
 				attrs : {
-					fill : "#FFCCCC"
+					fill : "#B2C2B2"
 				},
 				attrsHover : {
 					fill: "#99E6E6"
@@ -363,7 +361,7 @@
 		},//Latin America
 		"AU": {
 				attrs : {
-					fill : "#FFE6B2"
+					fill : "#D6C2AD"
 				},
 				attrsHover : {
 					fill: "#99E6E6"
@@ -460,7 +458,7 @@
 				longitude:-100,
                 attrs : {
                     opacity : 0.7,
-                    fill:'#7A8AAB'
+                    fill:'#99ADD6'
                 },
 				text : {
                     content : "30%",
@@ -481,7 +479,7 @@
 				longitude:135,
                 attrs : {
                     opacity : 0.7,
-                    fill:'#E6B85C'
+                    fill:'#C2A385'
                 },
 				text : {
                     content : "24%",
@@ -565,13 +563,13 @@
 					mode:"horizontal",
 					slices: [{
 						attrs: {
-							fill:'#99ADD6'
+							fill:'#8099CC'
 						},
 						label: "North America",
 						sliceValue: "North America"
 					},{
                     attrs: {
-                        fill: "#FFCCCC"
+                        fill: "#B2C2B2"
                     },
                     label: "Latin America",
                     sliceValue: "l"
@@ -589,13 +587,13 @@
                     sliceValue: "e"
                 },{
                     attrs: {
-                        fill: "#FF9999"
+                        fill: "#B2B299"
                     },
                     label: "Asia Pacific",
                     sliceValue: "Asia Pacific"
                 },{
                     attrs: {
-                        fill: "#FFE6B2"
+                        fill: "#D6C2AD"
                     },
                     label: "Australiasia",
                     sliceValue: "au"
