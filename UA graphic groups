@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+	    <!--map links--><script src="http://www.vincentbroute.fr//mapael/source/js/raphael/raphael-min.js"></script>
+	<script src="http://www.vincentbroute.fr//mapael/source/js/jquery.mapael.js?v=1"></script>
+	<script src="http://www.vincentbroute.fr//mapael/source/js/maps/world_countries.js"></script>
+	<script src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael.js"></script><!--rafael library-->
+
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				
+				    
+			    $(function () {
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+				    
+
+				    
+    $('#container02').highcharts({
+          title: {
+            text: 'Under Armour Outgrow Contemporary Competitors',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'In its most recent quarter ending June 30, Under Armour reported revenue of $783 million, a 28-percent increase over the same period a year ago. This is the 21st consecutive quarter the company saw a 20-plus percent growth in sales. Founded in 1996 and gone public in 2005, Under Armour has achieved tremendous revenue growth year over year. In 2014, Under Armour reported total sales of $3.08 billion, up by 32 percent from the previous year. It\'s growing at a faster rate than its contemporary sportswear companies like'+' <strong>Lululemon</strong>'+ ' (founded in 1998, went public in 2007) and ' + '<strong>Skechers</strong>' +' (founded in 1992, went public in 1999). Note: Lululemon runs on a February-to-January fiscal calendar, so revenue data is one month ahead of the other two companies. Source: U.S. Securities and Exchange Commission company filings',
+            x: -20
+            
+        },
+        xAxis: {
+           tickPosition:'inside',
+            tickmarkPlacement: 'on',
+            categories: ['2005', '2006', '2007', '2008','2009', '2010', '2011', '2012', '2013', '2014'],
+            crosshair:true
+            
+        },
+        yAxis: {
+            title: {
+                text: 'Revenue (in billions)'
+            },
+            min:0,
+           
+      	labels: {
+                format: '${value}'
+                }
+      },
+       
+        tooltip: {
+            valuePrefix: '$'
+        },
+  
+         credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+     
+        
+        series: [
+            {
+            name: 'Lululemon Athletica',
+            type:'spline',
+            lineWidth:3,
+            data: [
+0.084,
+0.149,
+0.27,
+0.35,
+0.45,
+0.71,
+1,
+1.37,
+1.59,{
+y: 1.8,
+marker: {
+        symbol: 'url(http://kvcr.org/~/media/Images/SBCCD/KVCR/Initiatives/lululemon.png)',
+        height:50,
+        width:70
+         }
+   }],
+            color: '#CACED2',
+            marker: {
+                enabled:true
+           }, 
+            
+        },{
+            name: 'Skechers USA',
+            type:'spline',
+            
+            data: [
+1,
+1.2,
+1.39,
+1.44,
+1.43,
+2.01,
+1.61,
+1.56,
+1.85,{y: 2.38,
+marker: {
+        symbol: 'url(http://weantalya.com/wp-content/uploads/2014/06/skechers-logo.jpg)',
+        height:50,
+        width:70
+         }
+   }],
+            color: '#80CCCC',
+            lineWidth:3,
+            marker:{
+           		enabled:true 
+          }     
+        },{//under armour
+            name: 'Under Armour',
+            dataLabels: {
+                enabled: false,
+           
+            },
+            marker:{
+				enabled:true,
+				symbol:'circle'            
+            },
+            type:'spline',
+            data: [0.281,
+0.43,
+0.60,
+0.72,
+0.86,
+1.06,
+1.47,
+1.83,
+2.33,{
+y: 3.08,
+marker: {
+        symbol: 'url(https://upload.wikimedia.org/wikipedia/commons/4/44/Under_armour_logo.svg)',
+        height:50,
+        width:50
+         }
+   }//close special marker
+],//close data
+            color: '#FF8080',
+            lineWidth:3
+        }],//close series
+        plotOptions:{
+        	series:{
+        		fillOpacity:0.1
+        	}
+        }
+        
+    });
+    //second graphic
+    $('#container').highcharts({
+			        chart: {
+			            type: 'bar'
+			        },
+			        title: {
+			            text: 'Under Armour Still an \"American\" Company'
+			        },
+			        subtitle: {
+			            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + 'As of 2014,Under Armour has more than 90 percent of sales coming from domestic market, whereas industry giant like Nike and Adidas have more than half of business outside North America. Under Armour and Adidas operate on a January to December fiscal calendar, while Nike runs from June to May. Source: U.S. Securities and Exchange Commission company filings',
+			        },
+			        xAxis: {
+			        categories: ['Under Armour', 'Nike Inc.','Adidas Group'],  
+   					minorTickLength: 0,
+   					tickLength: 0,
+   					labels: {
+                useHTML: true,
+                formatter: function () {
+                    return {
+                        'Under Armour': '<div><img style="height:50px; width:50px" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Under_armour_logo.svg"></div>',
+                        'Nike Inc.': '<div><img style="height:50px; width:65px" src="http://vector.me/files/images/1/9/1982/nike.png"></div>',
+                        'Adidas Group': '<div><img style="height:50px; width:60px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2000px-Adidas_Logo.svg.png"></div>'     
+                    }[this.value]; 
+                }
+            }
+			        },
+			        yAxis: {
+			            min: 0,
+			            max:100,
+			            title: {
+			                text: '% of total business'
+			            },
+			            tickInterval:20,
+			            stackLabels: {
+			                enabled: true,
+			                formatter: function () {
+                  				return this + "%";
+                			},
+			                
+			                style: {
+			                    fontWeight: 'bold',
+			                    fontSize:'20px',
+			                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+			                }
+			             
+			            }
+			        },
+			        legend: {
+			            align: 'center',
+			            verticalAlign: 'bottom',
+			            floating: false,
+			            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+			            shadow: false
+			        },
+			        tooltip: {
+			            headerFormat: '<b>{point.x}</b><br/>',
+			            pointFormat: 'Total itemized individual contribution: ${point.stackTotal} million<br>{series.name} share: ${point.y} million'
+			        },
+			        credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+			        plotOptions: {
+			            bar: {
+			                stacking: 'normal',
+			                dataLabels: {
+			                    enabled: true,
+			                    color: 'black',
+			                    formatter: function() {
+        return this.percentage.toFixed(0) +'%';
+       							},
+			                    style: {
+			                    textShadow: false
+			               }
+			               		
+			                }
+			            }
+			        },
+			        series: [{
+			            name: 'North America',
+			            color: '#FF8080',
+			            data: [91, 48,19]
+			            
+			        }, {
+			            name: 'Others',
+			            color: '#CACED2',
+			            data: [9,52,81]
+			        }]
+			    });
+	//map map map
+	$(".mapcontainer").mapael({
+		map : {
+			name : "world_countries",
+			defaultArea: {
+				attrs : {
+					fill : "#F0F0F5",
+					stroke: "#F0F3F1"
+				},
+				attrHover:{
+					fill:"#fff"
+				}
+			}, //close area
+			
+            defaultPlot : {
+                text : {
+                    attrs : {
+                        fill:"#000"
+                    }, 
+                    attrsHover : {
+                        fill:"#fff"
+                    }
+                }//close text
+            }//close plot
+		},//close map
+		
+		//custom starts here
+		areas:{
+		"US": {
+				attrs : {
+					fill : "#99ADD6"
+				},
+				attrsHover : {
+					fill: "#a4e100"
+				},
+				//text : {
+				//	content : "North America", 
+				//	attrs : {"font-size" : 16,
+				//	fill:"#000000"}
+				//}
+				value:"North America"
+		},
+		"CA": {
+				attrs : {
+					fill : "#99ADD6"
+				},
+				value:"North America"	
+		},//close canada
+		"CN": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"IN": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"HK": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"ID": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"JP": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"MY": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"PH": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"
+		},
+		"SG": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"
+		},
+		"KR": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"TW": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"TH": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},
+		"VN": {
+				attrs : {
+					fill : "#FF9999"
+				},
+				value:"Asia Pacific"	
+		},//Asia pacific
+		"FR": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				
+				}	
+		},
+		"DE": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				//text : {
+				//content : "Western Europe", 
+				//attrs : {"font-size" : 16,
+				//fill:"black"}	
+				//}
+		},
+		"AT": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"DK": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"GR": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"IT": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"NL": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"NO": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"PT": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"ES": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"SE": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"TR": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},
+		"GB": {
+				attrs : {
+					fill : "#99E6E6"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"w"	
+		},//West Europe
+		"CZ": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"	
+		},
+		"HU": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"
+		},
+		"PL": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"	
+		},
+		"RO": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"	
+		},
+		"RU": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"
+				//text : {
+				//content : "Eastern Europe", 
+				//attrs : {"font-size" : 16,
+				//		fill:"black"}
+				//}		
+		},
+		"UA": {
+				attrs : {
+					fill : "#B2D1E0"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"e"	
+		},//East Europe
+		"BR": {
+				attrs : {
+					fill : "#FFCCCC"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"l"
+				//text : {
+				//content : "Latin America", 
+				//attrs : {"font-size" : 16,
+				//		fill:"black"}
+				//}		
+		},
+		"CL": {
+				attrs : {
+					fill : "#FFCCCC"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"l"	
+		},
+		"MX": {
+				attrs : {
+					fill : "#FFCCCC"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"l"	
+		},
+		"AR": {
+				attrs : {
+					fill : "#FFCCCC"
+				},
+				attrsHover : {
+					fill: "#FFCCCC"
+				},
+				value:"l"	
+		},
+		"CO": {
+				attrs : {
+					fill : "#FFCCCC"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"l"	
+		},//Latin America
+		"AU": {
+				attrs : {
+					fill : "#FFE6B2"
+				},
+				attrsHover : {
+					fill: "#99E6E6"
+				},
+				value:"au"	
+		}
+		},//close areas
+		plots: {
+			'shoeAsia' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 65,
+				height: 65,
+				latitude :35, 
+				longitude:105,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'shoeNA' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 50,
+				height: 50,
+				latitude :55, 
+				longitude:-100,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'shoeLA' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 80,
+				height: 80,
+				latitude : -10, 
+				longitude:-50,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'shoeEE' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 55,
+				height: 55,
+				latitude :65, 
+				longitude:55,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'shoeWW' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 58,
+				height: 58,
+				latitude : 55, 
+				longitude:5,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'shoeAU' : {
+				type : "image",		url:"https://d30y9cdsu7xlg0.cloudfront.net/png/24994-200.png",
+				width: 35,
+				height: 35,
+				latitude : -20, 
+				longitude:133,
+				attrs : {
+					opacity : 1
+				}
+			},
+			'Asia':{
+				type: "circle",
+				size:60,
+				latitude :20, 
+				longitude: 110,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#CC7A7A'
+                },
+				text : {
+                    content : "42%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+				tooltip: {
+				content : "<span style=\"font-weight:bold;\">Asia Pacific:</span><br />footwear market share: 42%"}
+			},
+			'North America':{
+				type: "circle",
+				size:60,
+				latitude :40, 
+				longitude:-100,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#7A8AAB'
+                },
+				text : {
+                    content : "30%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+					tooltip: {
+				content : "<span style=\"font-weight:bold;\">North America:</span><br />footwear market share: 30%"}
+					},
+			'Australia':{
+				type: "circle",
+				size:60,
+				latitude :-35, 
+				longitude:135,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#E6B85C'
+                },
+				text : {
+                    content : "24%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+				tooltip: {
+				content : "<span style=\"font-weight:bold;\">Australiasia:</span><br />footwear market share: 24%"}
+					},
+			'Eastern Europe':{
+				type: "circle",
+				size:60,
+				latitude :50, 
+				longitude:55,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#8EA7B3'
+                },
+				text : {
+                    content : "32%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+				tooltip: {
+				content : "<span style=\"font-weight:bold;\">Eastern Europe:</span><br />footwear market share: 32%"}
+					},
+			'Latin America':{
+				type: "circle",
+				size:60,
+				latitude :-28, 
+				longitude:-50,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#CCA3A3'
+                },
+				text : {
+                    content : "57%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+				tooltip: {
+				content : "<span style=\"font-weight:bold;\">Asia Pacific:</span><br />footwear market share: 57%"}
+					},
+			'Western Europe':{
+				type: "circle",
+				size:60,
+				latitude :40, 
+				longitude:7,
+                attrs : {
+                    opacity : 0.7,
+                    fill:'#7AB8B8'
+                },
+				text : {
+                    content : "36%",
+                    position : "inner", 
+                    attrs : {
+						"font-size" : 18
+                        , "font-weight" : "bold"
+						, fill : "#fff"
+					}
+					},
+				tooltip: {
+				content : "<span style=\"font-weight:bold;\">Asia Pacific:</span><br />footwear market share: 36%"}
+					}				
+			},
+		legend:{
+			area :{
+					title: "Regions",
+					mode:"horizontal",
+					slices: [{
+						attrs: {
+							fill:'#99ADD6'
+						},
+						label: "North America",
+						sliceValue: "North America"
+					},{
+                    attrs: {
+                        fill: "#FFCCCC"
+                    },
+                    label: "Latin America",
+                    sliceValue: "l"
+                },{
+                    attrs: {
+                        fill: "#99E6E6"
+                    },
+                    label: "Western Europe",
+                    sliceValue: "w"
+                },{
+                    attrs: {
+                        fill: "#B2D1E0"
+                    },
+                    label: "Eastern Europe",
+                    sliceValue: "e"
+                },{
+                    attrs: {
+                        fill: "#FF9999"
+                    },
+                    label: "Asia Pacific",
+                    sliceValue: "Asia Pacific"
+                },{
+                    attrs: {
+                        fill: "#FFE6B2"
+                    },
+                    label: "Australiasia",
+                    sliceValue: "au"
+                }]
+				} 
+		}//close legend
+	});
+	
+});
+		</script>
+		
+		<style>
+	.mapTooltip {
+			position : fixed;
+			background-color : #4C4C4C;
+			moz-opacity:0.70;
+			opacity: 0.70;
+			filter:alpha(opacity=70);
+			border-radius:5px;
+			padding : 10px;
+			z-index: 1000;
+			max-width: 200px;
+			display:none;
+			color:#fff;
+			font-family:calibri, sans-serif;
+		}
+		
+		.map {
+            background-color:#fff;
+            padding:50px 5px;
+            position:relative;
+            height:350px;
+            }
+	p, h3, span{
+		font-family:calibri, sans-serif;
+		}
+	</style>
+	</head>
+
+	<body>
+		<div id="container" style="max-width:600px; min-width: 300px; height: 600px; margin: 0 auto; border: 1px solid gray"></div>
+		<div id="container02" style="max-width:650px; min-width: 310px; height: 600px; margin: 0 auto; border: 1px solid gray"></div>
+		
+		<div class="container03" style="max-width: 800px; padding:10px; margin:auto; border: 1px solid gray">
+			<h3>Foreign Markets Favor Shoes Over Apparels </h3>
+			<p>Footwear accounts for 30 percent in North America's sportswear market. This number in overseas markets are generally higher, except for Australia. Hover over circle labels to see more details on individual regions. Numbers are rounded. Source: Euromonitor International. </p>
+		<div class="mapcontainer">
+			<div class="map">
+				<span>Alternative content for the map</span>
+			</div>
+		<div class="areaLegend">
+				<span>Alternative content for the legend</span>
+			</div>
+			</div>
+</div><!--close container-->
+	</body>
+</html>
