@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Martin O'Malley's Debate and Speech Patterns</title>
+<link href='https://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'><!--google fonts-->
+<style>
+		.header{
+		margin-top:100px;
+		max-width:600px;
+		margin-left:auto;
+		margin-right:auto;
+		padding-right: 15px;
+		padding-left: 15px;
+		}
+		h1 {
+			font-family: "Patua One", sans-serif;
+			color: #0000B2;
+			text-shadow: 1px -1px 0 #fff, 1px 1px 0 #fff;
+		}
+		
+		.subtitle{
+		font-family: "Lato", sans-serif;
+		font-size:18px;
+		margin-top:40px;
+		}
+
+		img {
+			width: 100%;
+			margin: auto;
+			border: 1px solid #eee;
+		}
+		
+		ul{
+		list-style-type: none;
+		}
+		
+		li{
+		 border-top: 1px solid lightgrey;
+		 /*padding:20px;*/
+		}
+		
+		
+		p {
+			margin: auto;
+			margin-top: 20px;
+			font-size:22px;
+			font-family:"Lato", sans-serif;
+			padding-top: 10px;
+			padding-bottom:10px;
+			font-weight:600;
+			border-bottom: 2px solid #0000B2;
+			margin-bottom: 20px;
+			}
+		
+		.toptext {
+			font-size: 18px;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+		}	
+		.container {
+			max-width: 600px;
+			margin: auto;
+			margin-top:50px;
+			/*border:1px solid lightgrey;*/
+			padding-bottom:30px;
+		}
+		
+		nav{
+		background-color:black;
+		}
+		
+		nav img{
+		margin-top:15px;
+		width:220px;
+		margin-left:100px;
+		}
+		
+.link{
+font-family:"Lato", sans-serif;
+font-size:11px;
+margin-top:0px;
+}
+		
+		footer {
+  border-top: 1px solid lightgrey;
+  width: 90%;
+  font-family: 'lato', sans-serif;
+  font-weight: 300;
+  font-size:12px;
+  text-align: center;
+  color: grey;
+  padding: 10px;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 100px;
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+
+	var h2 = document.getElementsByTagName('h2')[0],
+		seconds = 0, minutes = 0, hours = 0,
+		t;
+
+	function add() {
+		seconds++;
+		if (seconds >20) {
+		h2.textContent = "00:00:00";
+		seconds = 0; minutes = 0; hours = 0;
+	}
+		h2.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+		timer();
+	}
+	function timer() {
+		t = setTimeout(add, 1000);
+	}
+	timer();
+});
+</script>
+
+</head>
+
+<body>
+ <nav class="navbar navbar-fixed-top">
+ <img src="http://cnsmaryland.org/interactives/fall-2015-2/Under-Armour/cnslogo-yellow-long.png"/>
+ 	
+ </nav>
+ 
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<div class="header">
+	<h1>Five Things You Might See From Martin O'Malley in Tuesday's Democrat Presidential Debate</h1>
+	<div class="subtitle">By Sissi Cao and Zoe Sagalow</strong> <br>Oct. 13, 2015<br></strong><br>
+	Former Maryland Gov. Martin O'Malley will join Hillary Clinton, Bernie Sanders and other candidates in the first Democratic presidential primary debate of the 2016 campaign Tuesday night in Las Vegas.  Some <a href="http://cnsmaryland.org/2015/10/09/democratic-debate-could-be-omalleys-best-and-last-campaign-shot/" target="_blank">analysts think</a> it represents O'Malley's last -- and perhaps only -- chance to boost his underwhelming poll numbers. <p class="toptext" style="border-bottom: 1px solid #fff;">For a preview of what to expect from O'Malley, Capital News Service watched debates from previous campaigns and high-profile speeches and press conferences. Here are some things you might see tonight: </div>
+</div>
+</div><!--grid-->
+</div><!--row-->
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<div class="container">
+
+		<p>1) Unexpected smiling</p>
+		<img src="http://i.imgur.com/GI1sEw9.gif">
+			<a class="link" href="https://www.youtube.com/watch?v=ZrxkAos0Uco" target="_blank">Original video</a>
+		<p>2) Wagging of fingers</p>
+		<img src="http://i.imgur.com/hewl8XY.gif">
+			<a class="link" href="https://www.youtube.com/watch?v=ZrxkAos0Uco" target="_blank">Original video</a>
+			
+		<p>3) Repetition</p>
+		<img src="http://i.imgur.com/g1qS9Cp.gif">
+	<p class="link"><a href="https://www.youtube.com/watch?v=rMtGEwygnfo" target="_blank">Original video </a></p>		
+		
+		<p>4) Passion</p>
+		<img src="http://i.imgur.com/PZ19vbk.gif">
+		<a class="link" href="https://www.youtube.com/watch?v=xFFyzNDx5nw" target="_blank">Original video</a>
+		<p>5) Not blinking...for a long time</p>
+		<h2><time>00:00:00</time></h2>
+		<img src="http://i.imgur.com/akDtZIM.gif">
+		<a class="link" href="https://www.youtube.com/watch?v=Kb7zzucPLhU" target="_blank">Original video </a>
+		
+
+</div><!--container-->
+</div>
+</div>
+<div class="col-md-12">
+<footer>Copyright @ Capital News Service 2015</footer>
+</div>
+</body>
+</html>
