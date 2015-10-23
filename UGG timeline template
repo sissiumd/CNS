@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="cnsmaryland.org">
+    <meta name="twitter:title" content="UGG the Billion-Dollar Boots">
+    <meta name="twitter:description" content="It's this time of year again, when the leaves change color and fall, the temperature drops, and women -- and a growing number of men -- break out their UGG boots for the season.">
+    <meta name="twitter:creator" content="@CNSmd">
+    <!-- Twitter Summary card images must be at least 120x120px -->
+    <meta name="twitter:image" content="http://cnsmaryland.org/wp-content/uploads/2015/10/UGG-head-facebook.png">
+
+    <!-- Open Graph data -->
+   <meta property="og:title" content="UGG the Billion-Dollar Boots" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://www.cnsmaryland.org/interactives/fall-2015-2/UGG-timeline-10-15/index.html" />
+    <meta property="og:image" content="http://cnsmaryland.org/wp-content/uploads/2015/10/UGG-head-facebook.png" />
+    <meta property="og:description" content="It's this time of year again, when the leaves change color and fall, the temperature drops, and women -- and a growing number of men -- break out their UGG boots for the season." /> 
+    <meta property="og:site_name" content="cnsmaryland.org" /> 
+    
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'><!--google fonts-->
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<link href='https://fonts.googleapis.com/css?family=Merriweather:400,900' rel='stylesheet' type='text/css'>
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+	<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+			
+
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+			//share count	    
+			$(function () {
+    var countUp, setCount, url;
+    url = 'http://cnsmaryland.org/interactives/fall-2015-2/under-armour/index.html';
+    $.getJSON('http://urls.api.twitter.com/1/urls/count.json?url=' + url + '&callback=?', function (json) {
+        return setCount($('.twCount'), json.count);
+    });
+    $.getJSON('http://graph.facebook.com/' + url+ '&callback=?', function (json) {
+        return setCount($('.fbCount'), json.shares);
+    });
+    $.getJSON('http://api.pinterest.com/v1/urls/count.json?url=' + url + '&callback=?', function (json) {
+        return setCount($('.prCount'), json.count);
+    });
+    $.getJSON('http://www.linkedin.com/countserv/count/share?url=' + url + '&callback=?', function (json) {
+        return setCount($('.liCount'), json.count);
+    });
+   
+    countUp = function ($item) {
+        return setTimeout(function () {
+            var current, newCount, target;
+            current = $item.attr('data-current-count') * 1;
+            target = $item.attr('data-target-count') * 1;
+            newCount = current + Math.ceil((target - current) / 2);
+            $item.attr('data-current-count', newCount);
+            $item.html(newCount);
+            if (newCount < target) {
+                return countUp($item);
+            }
+        }, 100);
+    };
+    setCount = function ($item, count) {
+        if (count == null) {
+            count = null;
+        }
+        $item.attr('data-target-count', count);
+        $item.attr('data-current-count', 0);
+        return countUp($item);
+    };
+}.call(this));
+
+	</script>
+
+  	
+	<title>UGG the Billion-Dollar Boots</title>
+</head>
+<body>
+<nav class="navbar navbar-fixed-top">
+ <img src="http://cnsmaryland.org/interactives/fall-2015-2/Under-Armour/cnslogo-yellow-long.png"/>
+ </nav>
+	<header>
+	<img src="UGGheader04.png">
+	</header>
+<div class="intro">
+
+<h1>The Billion-Dollar Ugly Boots <h2>
+<span class="byline">by SISSI CAO<br>
+Oct. 23, 2015</span>
+
+<div id="share">
+  <a href="https://twitter.com/intent/tweet?url=http://www.cnsmaryland.org/interactives/fall-2015-2/UGG-timeline-10-15/index.html&text=UGG the Billion-Dollar Boots&via=" target="_blank" class="btnTw" title="Twitter"><span class="twCount">0</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?url=http://www.cnsmaryland.org/interactives/fall-2015-2/UGG-timeline-10-15/index.html" class="btnFb" title="Facebook"><span class="fbCount">0</span></a>
+  <a href="http://www.cnsmaryland.org/interactives/fall-2015-2/UGG-timeline-10-15/index.html&media=http://cnsmaryland.org/wp-content/uploads/2015/10/UGG-head-facebook.png&description=" class="btnPr" title="Pinterest"><span class="prCount">0</span></a>
+  
+  <a href="https://www.linkedin.com/cws/share?url=http://www.cnsmaryland.org/interactives/fall-2015-2/UGG-timeline-10-15/index.html" class="btnLi" title="LinkedIn"><span class="liCount">0</span></a>
+</div>     
+
+<p>It's this time of year again, when the leaves change color and fall, the temperature drops, and women -- and a growing number of men -- break out their UGG boots for the season.</p>
+
+<p>Some love UGG boots, spending hundreds of dollars per pair, while others gleefully mock them.  Regardless of how you feel about UGGs, there's no denying their transformation from a cult fashion object for Australian surfers into big global business -- $1.5 billion per year.</p>    
+
+<p>And the "luxurious comfort" brand, acquired by outdoor footwear company Deckers in 1995, keeps getting bigger, with a new line of home goods.</p>
+
+<p>This is how UGG grew from a small shop in Southern California into a fashion giant.</p>
+
+</div>
+	<section id="cd-timeline" class="cd-container">
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+
+
+			<div class="cd-timeline-content">	
+			<h2>Birth</h2>	<br>	
+				<p>Australian Brian Smith founded UGG with $500 in start-up funds in Southern California in 1978 to sell sheepskin shearling boots. The Aussie style was originally designed to help <a href="http://www.news.com.au/world/ugg-man-happy-to-trade-dollars-for-surf/story-e6frfkyi-1226006046295" target="_blank">surfers</a> to combat chilly weather.</p>
+				<img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Uggs2.jpg">
+				<div class="photocap">A pair of UGG boots, via Wikimedia Commons</div>	
+				<span class="cd-date"><h2>1978</h2></span>
+			</div> <!-- cd-timeline-content -->
+			
+		</div> <!-- cd-timeline-block -->
+
+
+<!--new box-->
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+			
+			<div class="cd-timeline-content">
+			<h2>Fall under big umbrella</h2>
+			<p>
+			California-based Deckers Outdoor Corporation acquired UGG for $14.6 million in 1995 and expanded it into an international brand. During the late 90s, UGG experienced double-digit sales growth. </p>
+			
+			<img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Ugg_boots.jpg">
+			<div class="photocap">UGG boots, via Wikimedia Commons</div>
+			<span class="cd-date"><h2>1995</h2></span>
+			</div>
+		</div>
+<!--end new box-->
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content">
+			<h2>The star effect</h2><br>
+				<p>UGG boots surged in popularity after being featured on the Oprah Winfrey Show in 2000 and appearing on the feet of celebrities in Hollywood. The "star effect" helped the brand with young, fashion-minded consumers.</p>
+				<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">UGG Australia Boots: Every Celebrity have one, why don’t you get one for yourself at <a href="http://t.co/vI3K4CGirx">http://t.co/vI3K4CGirx</a> <a href="http://t.co/tklWpzbf3F">pic.twitter.com/tklWpzbf3F</a></p>&mdash; Retro Designer Wear (@Retro_Clothing) <a href="https://twitter.com/Retro_Clothing/status/395481619215024128">October 30, 2013</a></blockquote>
+<script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					
+				<span class="cd-date"><h2>2000</h2></span>
+			</div> <!-- cd-timeline-content -->
+		</div> <!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content">
+			<h2>Business legend </h2><br>
+				<p>UGG sales surpassed <span class="highlight">$1 billion</span> in 2011. That same year, it launched UGG Collection, a "made in Italy" high-end line marking its entry into the world of high fashion. </p>
+			<div class="row">
+			<div class="col-sm-8">
+				<img src="saleschart.png" style="margin:auto; padding-top:10px; width:300px;">
+				<div class="photocap" style="text-align:left;">Source: Deckers Outdoor Corp. annual reports</div>
+			</div>
+			
+			<div class="col-sm-4 carmela">
+			<img  src="carmela.png">
+			<div class="photocap">The $395 UGG Carmela boots of the UGG Collection</div>
+			</div>
+			</div>
+				<span class="cd-date"><h2>2011</h2></span>
+			</div> <!-- cd-timeline-content -->
+		</div> <!-- cd-timeline-block -->
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content">
+			<h2> Guys, stop hating on UGG</h2><br>
+				<p>Despite the fact that UGG boots consistently appear on lists of "most hated fashion items by men", UGG opened its first mens store on the 5th Avenue in New York City in 2012. Mens footwear contributed <a href="http://www.cnbc.com/2014/12/24/wait-they-sell-uggs-for-men.html" target="_blank">10 percent</a> to total sales that year. </p>
+				<blockquote class="instagram-media" data-instgrm-version="5" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:50% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAGFBMVEUiIiI9PT0eHh4gIB4hIBkcHBwcHBwcHBydr+JQAAAACHRSTlMABA4YHyQsM5jtaMwAAADfSURBVDjL7ZVBEgMhCAQBAf//42xcNbpAqakcM0ftUmFAAIBE81IqBJdS3lS6zs3bIpB9WED3YYXFPmHRfT8sgyrCP1x8uEUxLMzNWElFOYCV6mHWWwMzdPEKHlhLw7NWJqkHc4uIZphavDzA2JPzUDsBZziNae2S6owH8xPmX8G7zzgKEOPUoYHvGz1TBCxMkd3kwNVbU0gKHkx+iZILf77IofhrY1nYFnB/lQPb79drWOyJVa/DAvg9B/rLB4cC+Nqgdz/TvBbBnr6GBReqn/nRmDgaQEej7WhonozjF+Y2I/fZou/qAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://instagram.com/p/h3TwvsQD8P/" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A photo posted by 338online (@338online)</a> on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2013-12-13T13:53:56+00:00">Dec 13, 2013 at 5:53am PST</time></p></div></blockquote>
+<script async defer src="http://platform.instagram.com/en_US/embeds.js"></script>
+
+		
+				<span class="cd-date"><h2>2012</h2></span>
+			</div> <!-- cd-timeline-content -->
+		</div> <!-- cd-timeline-block -->
+
+		
+
+		<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location" style="color:#FFF">
+			</div> <!-- cd-timeline-img -->
+		<div class="cd-timeline-content">
+			<h2>One in four women have UGG boots</h2><br>
+				<p> A 2013 <a href="http://www.racked.com/2013/4/22/7675795/shoeshopping-habits-by-the-numbers-an-infographic" target="_blank">survey</a> conducted by Beso.com showed that <span class="highlight" >26% </span> of American women own at least one pair of UGG boots.</p>
+				<img src="womenline.png" style="height:150px;">
+				<span class="cd-date"><h2>2013</h2></span>
+			</div> <!-- cd-timeline-content -->
+			
+		</div> <!-- cd-timeline-block -->
+
+
+
+<div class="cd-timeline-block">
+			<div class="cd-timeline-img cd-location">
+				<img src="img/cd-icon-location.svg" alt="Location">
+			</div> <!-- cd-timeline-img -->
+		<div class="cd-timeline-content">
+			<h2>Moving beyond boots</h2><br>
+			<div class="row">
+			<div class="col-sm-8">
+				<p>UGG sales reached  <span class="highlight">  $1.5 billion </span> in the fiscal year that ended in March 2015. UGG sales account for 83 percent of Deckers Outdoor Corp.'s total revenue. The brand is now breaking into apparel and home furnishing, producing items like $4,500 sheepskin blankets and soft bathrobes.</p></div>
+				<div class="col-sm-4">
+				<img src="home02.png">
+				<div class="photocap">UGG sheepskin bed blanket $4,500</div></div>
+				</div>
+				<span class="cd-date"><h2>2015</h2></span>
+			</div> <!-- cd-timeline-content -->
+			
+		</div> 
+		
+<!--final section - invisible-->
+		<div class="cd-timeline-block" style="display:none">
+			<div class="cd-timeline-img cd-movie">
+				<img src="img/cd-icon-movie.svg" alt="Movie">
+			</div> <!-- cd-timeline-img -->
+
+			<div class="cd-timeline-content">
+				<h2></h2>
+				<p></p>
+				<span class="cd-date">the end</span>
+			</div> <!-- cd-timeline-content -->
+		</div> <!-- cd-timeline-block -->
+	</section> <!-- cd-timeline -->
+	
+	<div class="col-md-12">
+<footer>Copyright <a href="https://cnsmaryland.org">Capital News Service</a>, 2015 | Designed by <a href="https://twitter.com/sissicao">Sissi Cao</a></footer>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
+</body>
+</html>
