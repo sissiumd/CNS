@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			// Plugin to add support for credits.target in Highcharts.
+			$(document).ready(function () {
+				Highcharts.wrap(Highcharts.Chart.prototype, 'showCredits', function (proceed, credits) {
+					proceed.call(this, credits);
+					if (this.credits && credits.target) {
+        				this.credits.on('click', function () {
+            				$('<a>').attr({
+                				href: credits.href,
+                				target: credits.target
+            				})[0].click();
+        				});
+    				}
+       
+				});
+						
+				
+				    
+			    $(function () {
+			    Highcharts.setOptions({
+				        lang: {
+				            thousandsSep: ',',
+				            decimalPoint: '.'
+				        }
+				    })
+				    });
+    $('#container').highcharts({
+          title: {
+            text: 'Numbers Falling, but Veterans Still More Likely to be Homeless',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' +'<br>In 2009, 34 out of every 10,000 veterans were homeless, according to the U.S. Census bureau, while only 20 out of every 10,000 non-veterans were homeless.  Since then, the percentage of homeless veterans has dropped noticably, while the percentage of non-veteran homeless has remained relatively constant.<br> Source: U.S. Census American Community Survey. U.S. Department of Housing and Urban Development',
+            x: -20
+        },
+        xAxis: {
+           tickPosition:'outside',
+            tickmarkPlacement: 'between',
+            categories: ['2009', '2010', '2011', '2012', '2013', '2014'],
+            crosshair:true,
+           lineColor:'#000',
+              
+        },
+        yAxis: {
+            title: {
+                text: 'Percentage of population that is homeless'
+            },
+           	min: 0,
+            minTickInterval:0.1,
+            gridLineWidth: 0,
+            lineWidth:1,
+            lineColor:'#000',
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+      		labels: {
+        		formatter: function(){
+          		return this.value + '';
+       		 }
+       	
+     	}      
+      },
+       
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: 'Percentage of {series.name} population <br>that is homeless: {point.y}%'
+			        
+        },
+  
+         credits: {
+			        	enabled: true,
+			            text: 'Capital News Service',
+			            href: 'http://cnsmaryland.org/',
+			            target: '_blank'
+			        },
+     
+        
+        series: [
+            {
+            name: 'veteran',
+            data: [0.34,	0.34,	0.31,	0.29,	0.28,	0.26],
+            color: '#ffd700',
+            lineWidth:4,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}%',
+                style: { fontWeight:'100' }
+            },
+            marker: {
+                enabled:false
+           },
+        },
+            {
+            name: 'non-veteran',
+            data: [0.20,	0.20,	0.19,	0.19,	0.18,	0.18],
+            color: '#7094DB',
+            lineWidth:4,
+            marker: {
+                enabled:false
+           }, 
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}%',
+               style: {fontWeight:'100' }
+            }
+        }]
+    });
+});
+		</script>
+	</head>
+
+	<body>
+		<div id="container" style="width:100%; max-width:650px; height: 700px; margin: 0 auto"></div>
+	</body>
+</html>
