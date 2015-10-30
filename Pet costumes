@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			
+						
+				
+				$(function () {
+				Highcharts.setOptions({
+     				colors: ['#E68A00', '#ccc','#ffd700']
+     			});
+    
+    $('#container').highcharts({
+          title: {
+            text: 'Millennials Fond of Dressing Their Pets in Costumes for Halloween ',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<strong>By Sissi Cao and Joe Zimmermann</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + '<br><br>'+'Every year, Halloween gives people an excuse to not only wear costumes themselves, but also dress up their pets. Almost 13 percent of Americans will put a costume on their pet this Halloween, according to National Retail Federation survey data. The younger crowd is far more likely to have their pets in a holiday outfit: almost 20 percent of 18- to 34-year-olds say they’ll dress up their animals, and older demographics become increasingly unlikely to do so. Americans plan to collectively spend about $350 million on pet costumes this year, which is still only a fraction of the money spent on costumes. Children costumes could net $950 million, and adult costumes more than $1.2 billion.<br> Source: <a href="https://nrf.com/sites/default/files/Copy%20of%20Halloween%209-10-15%20press.pdf" target="_blank">National Retail Foundation</a>',
+            x: -20
+        },
+        xAxis: {
+        	title:{
+        	text:'Age group',
+        	align:'high'
+        	},
+           	tickPosition:'outside',
+            tickmarkPlacement: 'between',
+            categories: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'],
+            lineColor:'#000',
+              
+        },
+        yAxis: {
+            title: {
+                text: '% of population',
+                align:'high'
+            },
+           	min: 0,
+            minTickInterval:5,
+            gridLineWidth: 0,
+            lineWidth:1,
+            lineColor:'#000',
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }],
+      		labels: {
+        		formatter: function(){
+          		return this.value + '';
+       		 }
+       	
+     	}      
+      },
+       
+        tooltip: {
+            formatter: function(){
+            return '<b>' + this.y + '</b>' + '%' +' of people between ' + '<b>' + this.x + '</b>' + '<br/>'+' will dress their pets in costumes.';
+            }
+			        
+        },
+  
+         credits: {
+			        enabled: false,     
+			   },
+		legend: {
+            useHTML:true,
+            symbolWidth:0,
+            labelFormatter: function() {
+                return '<img src="http://cnsmaryland.org/wp-content/uploads/2015/10/dogpope.png" width="150" height="200">';
+            },
+            align: 'right',
+            verticalAlign: 'top',
+            x: -30,
+            y: 230,
+            floating: true
+        },
+     
+        
+        series: [
+            {
+            name: 'Age groups',
+            type:'column',
+            data: [
+            {y:19.7,
+            color:'#ffd700'
+            },{ 
+            y:19.9,
+            color:'#ffd700'
+            },
+             13.3, 12.1, 8.8,	5.5],
+            color: '#ccc',
+            dataLabels: {
+                enabled: true,
+                format: '{point.y}%',
+                style: 
+                { 
+                fontFamily:'sans-serif',
+                fontSize:'14px'
+                 }
+            }
+            
+           
+        }]
+    });
+		
+		//pie chart begins here
+
+
+     $('#container2').highcharts({
+            chart: {
+                type: 'pie'
+            },
+        title: {
+            text: 'Americans Spend $2.5 Billions on Halloween Costumes This Year'
+        },
+        subtitle: {
+            text: ''
+        },
+            yAxis: {
+                title: {
+                    text: 'Total percent market share'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return '<b>'+ this.point.name +'</b>: $'+ this.y +' billion';
+                }
+            },
+            credits: {
+			        enabled: false,     
+			   },
+            series: [{
+                name: 'Browsers',
+                data: [["Children Costumes",.95],["Adult Costumes",1.22],["Pet Costumes",0.35]],
+		size: '100%',
+                innerSize: '50%',
+                showInLegend:false,
+                dataLabels: {
+                    enabled: true
+                }
+            }]
+        });
+    
+});
+	</script>
+	</head>
+
+	<body>
+		<div id="container" style="width:100%; max-width:650px; height: 750px; margin: 0 auto"></div>
+		<div id="container2" style="width:100%; max-width:650px; height: 500px; margin: 50px auto"></div>
+	</body>
+</html>
