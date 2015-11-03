@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/highcharts.js"></script>
+		<script type="text/javascript">
+			
+			
+						
+				
+				$(function () {
+				Highcharts.setOptions({
+     				
+     			});
+    
+    $('#container').highcharts({
+          title: {
+            text: 'Obesity a Serious Problem for Veterans',
+            x: -20 //center
+        },
+        subtitle: {
+            text: '<div style="text-align: center;"><strong>By Sissi Cao</strong>' + '<br>CAPITAL NEWS SERVICE<br>' + '<p>'+'More than seven in ten veterans (78 percent) who use Veterans Health Administration services are overweight or obese, according to a recent research by the Department of Veterans Affairs. That\'s about 20 percentage points higher than the general population (64 percent). Veterans are more likely to be morbidly obese, with a body mass index higher than 40. Morbid obesity can interfere with basic physical function and increase the risk of developing obesity-related conditions.' + '<br> Source: Department of Veterans Affairs. Department of Health and Human Services.</div>',
+            x: -20,
+            useHTML: true
+        },
+        chart: {
+            type: 'bar'
+        },
+        xAxis: {
+            tickmarkPlacement: null,
+            tickWidth:0,
+            categories: ['General <br> Population', 'Veterans'],
+            lineColor:'#000',
+            labels: {
+            	style: {
+                	color: '#000',
+                	font: '16px \'PT Sans\' sans-serif'
+            	},
+            	formatter: function () {
+                return this.value;
+            }
+        },
+        },
+        yAxis: {
+            title: {
+                text: '% of population',
+                align:'high'
+            },
+           	min: 0,
+            minTickInterval:20,
+            ceiling:100,
+            gridLineWidth: 0,
+            lineWidth:1,
+            lineColor:'#000',
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]     
+      },
+       plotOptions: {
+			            bar: {
+			                stacking: 'normal',
+			                dataLabels: {
+			                	
+			                    enabled: true,
+			                    color: 'black',
+			                    formatter: function() {
+               return this.y +'%';
+       							}
+			               		
+			                }
+			            }
+			        },
+        tooltip: {
+            formatter: function(){
+            return '<b>' + this.y + '</b>' + '%'  + ' of '  + this.x + ' are ' + this.series.name +'.' ;
+            }
+			        
+        },
+  
+         credits: {
+			        enabled: false,     
+			   },
+     
+        legend: {
+            reversed: true
+        },
+        series: [{
+            name: 'morbidly obese',
+            data: [5, 18],
+            color:'#CC2900'
+        }, {
+            name: 'obese',
+            data: [28, 23],
+            color:'#FF471A'
+        }, {
+            name: 'overweight',
+            data: [31, 37],
+            color:'#FF9933'
+        },{
+            name: 'normal',
+            data: [36, 22],
+            color:'#FFE680'
+        }]
+    });
+		
+		
+    
+});
+	</script>
+	</head>
+
+	<body>
+		<div id="container" style="width:100%; max-width:650px; height: 600px; margin: 0 auto"></div>
+		
+	</body>
+</html>
+
