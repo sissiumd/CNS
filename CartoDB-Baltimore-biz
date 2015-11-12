@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Baltimore Business Data Viz</title>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<style>
+.carto{
+margin:auto;
+padding:20px;
+
+}
+
+.maptext{
+max-width:700px;
+}
+h2{
+font-family:'Roboto',sans-serif;
+font-size:30px;
+}
+
+p{
+font-family:"Open Sans", sans-serif;
+}
+
+</style>
+
+<div class="carto">
+<div class="maptext">
+<h2 class="mapheader">What Are the Dominant Industry in Different Parts of Baltimore?</h2>
+<p class="mapsubhead">Professional, scientific and technical service businesses are more concentrated in downtown and the wealthy northern part of the city, while the retail and health care jobs converge in low-income areas.  </p>
+</div>
+<div class="map">
+<iframe width="1000px" height="700px" frameborder="0" src="https://sissimsu.cartodb.com/viz/949fc426-895c-11e5-83c0-0e98b61680bf/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+</div>
+</div>
+</body>
+
+</html>
