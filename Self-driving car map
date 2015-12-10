@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	    <script src="http://code.highcharts.com/maps/highmaps.js"></script>
+		<script src="http://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+		<script type="text/javascript">
+
+	$(function () {
+
+    // Prepare data
+    var data = [
+        {
+            "hc-key": "us-ma",
+            "value": 0
+        },
+        {
+            "hc-key": "us-wa",
+            "value": 0
+        },
+        {
+            "postal-code": "CA",
+            "value": 2012
+            
+        },
+        {
+            "hc-key": "us-or",
+            "value": 0
+        },
+        {
+            "hc-key": "us-wi",
+            "value": 0
+        },
+        {
+            "hc-key": "us-me",
+            "value": 0
+        },
+        {
+            "postal-code": "MI",
+            "value": 2013
+        },
+        {
+            "postal-code": "NV",
+            "value": 2011
+        },
+        {
+            "hc-key": "us-nm",
+            "value": 0
+        },
+        {
+            "hc-key": "us-co",
+            "value": 0
+        },
+        {
+            "hc-key": "us-wy",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ks",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ne",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ok",
+            "value": 0
+        },
+        {
+            "hc-key": "us-mo",
+            "value": 0
+        },
+        {
+            "hc-key": "us-il",
+            "value": 0
+        },
+        {
+            "hc-key": "us-in",
+            "value": 0
+        },
+        {
+            "hc-key": "us-vt",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ar",
+            "value": 0
+        },
+        {
+            "hc-key": "us-tx",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ri",
+            "value": 0
+        },
+        {
+            "hc-key": "us-al",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ms",
+            "value": 0
+        },
+        {
+            "hc-key": "us-nc",
+            "value": 0
+        },
+        {
+            "hc-key": "us-va",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ia",
+            "value": 0
+        },
+        {
+            "hc-key": "us-md",
+            "value": 0
+            
+        },
+        {
+            "hc-key": "us-de",
+            "value": 0
+        },
+        {
+            "hc-key": "us-pa",
+            "value": 0
+        },
+        {
+            "hc-key": "us-nj",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ny",
+            "value": 0
+        },
+        {
+            "hc-key": "us-id",
+            "value": 0
+        },
+        {
+            "hc-key": "us-sd",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ct",
+            "value": 0
+        },
+        {
+            "hc-key": "us-nh",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ky",
+            "value": 0
+        },
+        {
+            "hc-key": "us-oh",
+            "value": 0
+        },
+        {
+            "postal-code": "TN",
+            "value": 2015
+        },
+        {
+            "hc-key": "us-wv",
+            "value": 0
+        },
+        {
+            "postal-code": "DC",
+            "value": 2013
+        },
+        {
+            "hc-key": "us-la",
+            "value": 0
+        },
+        {
+            "postal-code": "FL",
+            "value": 2012
+        },
+        {
+            "hc-key": "us-ga",
+            "value": 0
+        },
+        {
+            "hc-key": "us-sc",
+            "value": 0
+        },
+        {
+            "hc-key": "us-mn",
+            "value": 0
+        },
+        {
+            "hc-key": "us-mt",
+            "value": 0
+        },
+        {
+            "postal-code": "ND",
+            "value": 2015
+        },
+        {
+            "hc-key": "us-az",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ut",
+            "value": 0
+        },
+        {
+            "hc-key": "us-hi",
+            "value": 0
+        },
+        {
+            "hc-key": "us-ak",
+            "value": 0
+        }
+    ];
+    
+
+    // Initiate the chart
+    $('#mapcontainer').highcharts('Map', {
+
+        title : {text : 'Six states have self-driving car laws'},
+        subtitle : {text : ''},
+        credits: {enabled: false},
+       legend: { enabled:false},
+       mapNavigation: { enabled: false},
+		tooltip: {
+			useHTML: true,
+            style: {
+                padding: 8,
+                color: '#fff',
+                
+            },
+		    borderRadius: 0,
+		    backgroundColor: 'rgba(128, 159, 255,0.9)',
+            formatter: function() {
+        return "<b>" + this.series.name + this.point.value + "</b>";
+             }
+        },
+        series : [{
+            data : data,
+            mapData: Highcharts.maps['countries/us/us-all'],
+            joinBy: 'postal-code',
+            name:'First bill passed in ',
+            states: {
+                color: '#fff5cc',
+                hover: {
+                    color: '#ffcc00'
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                format: '{point.postal-code}',
+                style: {
+                     textTransform: 'uppercase'
+               }
+            }
+            },{
+            name: 'Separators',
+            type: 'mapline',
+            data: Highcharts.geojson(Highcharts.maps['countries/us/us-all'], 'mapline'),
+            color: 'silver',
+            showInLegend: false,
+            enableMouseTracking: false
+        }],
+
+            colors: ['rgba(51,102,255,1)', '#fff5cc'],      
+            colorAxis: {
+                    dataClassColor: 'category',
+                    dataClasses: [{
+                        from: 2010,
+                        to: 2016
+                    }, {
+                        from: 0,
+                        to: 0
+                    }]
+                },
+    });
+});					
+		</script>
+	</head>
+
+	<body>
+		<div id="mapcontainer" style="max-width: 600px; min-width: 310px; height: 650px; margin: 0 auto"></div>
+	</body>
+</html>
